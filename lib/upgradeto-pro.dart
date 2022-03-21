@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 import 'package:insta_look/stripe.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:image_picker/image_picker.dart';
+
 class Upgradetopro extends StatefulWidget {
   const Upgradetopro({ Key? key }) : super(key: key);
 
@@ -9,6 +15,47 @@ class Upgradetopro extends StatefulWidget {
 }
 
 class _UpgradetoproState extends State<Upgradetopro> {
+  final ImagePicker imgpicker = ImagePicker();
+  String imagepath = "";
+  
+  openImage() async {
+    try {
+        var pickedFile = await imgpicker.pickImage(source: ImageSource.gallery);
+        //you can use ImageCourse.camera for Camera capture
+        if(pickedFile != null){
+              imagepath = pickedFile.path;
+              print(imagepath); 
+              //output /data/user/0/com.example.testapp/cache/image_picker7973898508152261600.jpg
+
+              File imagefile = File(imagepath); //convert Path to File
+              Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
+              String base64string = base64.encode(imagebytes); //convert bytes to base64 string
+              print(base64string); 
+              /* Output:
+              /9j/4Q0nRXhpZgAATU0AKgAAAAgAFAIgAAQAAAABAAAAAAEAAAQAAAABAAAJ3
+              wIhAAQAAAABAAAAAAEBAAQAAAABAAAJ5gIiAAQAAAABAAAAAAIjAAQAAAABAAA
+              AAAIkAAQAAAABAAAAAAIlAAIAAAAgAAAA/gEoAA ... long string output
+              */ 
+
+              Uint8List decodedbytes = base64.decode(base64string);
+              //decode base64 stirng to bytes
+
+              setState(() {
+              
+              });
+        }else{
+           print("No image is selected.");
+        }
+    }catch (e) {
+        print("error while picking file.");
+    }
+  }
+   // uploading image banner
+    TextEditingController picController = TextEditingController();
+  
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,21 +120,85 @@ SizedBox(width: 107,),
              ],),
 
              SizedBox(height: 50,),
-             Container(
-             height: 200,
-             width: double.infinity,
-             color:  Color.fromARGB(176, 4, 49, 73),
-              child: Row(
-               children: [
-                    Image.asset('images/advertice.png' , fit: BoxFit.fill, 
-                  
-                  )
-                      
+          //    Container(
+               
+          //      alignment: Alignment.center,
+          //      padding: EdgeInsets.all(20),
+          //      child: Column(
+          //        children: [
+         
+          //           imagepath != ""?Image.file(File(imagepath)):
+          //             Container( 
+          //               child: Text("No Image selected."),
+          //             ),
+         
+          //             //open button ----------------
+          //             ElevatedButton(
+          //               onPressed: (){
+          //                   openImage();
+          //               }, 
+          //               child: Text("Open Image")
+          //             ),
+          //        ]
+          //      ),
+          //  ),
+         
 
-               ],
-             )
+             GestureDetector(
+               onTap: (){ openImage();},
+               child: Container(
+               height: 200,
+               width: double.infinity,
+               color:  Color.fromARGB(176, 4, 49, 73),
+                child: Row(
+                  
+                 children: [
+                     
+                     imagepath != "" ?Image.file(File(imagepath)):
+                 
+                      Image.asset('images/advertice.png' , fit: BoxFit.fill, 
+                    
+                    )
+                        
+             
+                 ],
+               )
+               ),
              ),
              SizedBox(height: 15,),
+             
+                  Padding(
+                    padding: const EdgeInsets.only(left: 45,right: 45),
+                    child: Column(
+                    children: [
+                      MaterialButton(
+                        color: Colors.blue,
+                        minWidth: double.infinity,
+                        height: 50,
+                        onPressed: (){
+                         //  picupload(picController.text.toString(), );
+                       
+                               
+                        //  Navigator.push(context, MaterialPageRoute(builder: (context)=> Adminbottom ()));
+                        },
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.blue,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          "pic upload",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,color: Colors.white,
+                          ),
+      
+                        ),
+                      ),
+                    ],
+                ),
+                  ),
              
                Column(children: [
               Row(children: [

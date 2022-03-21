@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_pay/flutter_pay.dart';
 
-// void main() => runApp(MyApp());
 class Payment extends StatelessWidget {
   const Payment({ Key? key }) : super(key: key);
 

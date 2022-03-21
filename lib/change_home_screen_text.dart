@@ -1,4 +1,4 @@
-
+import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -8,25 +8,23 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-class Login extends StatefulWidget {
-  const Login({ Key? key }) : super(key: key);
+class ChangeHomescreen extends StatefulWidget {
+  const ChangeHomescreen({ Key? key }) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  State<ChangeHomescreen> createState() => _ChangeHomescreenState();
 }
 
-class _LoginState extends State<Login> {
-    TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  void login(String email , password) async {
-  
-   var headers = {
+class _ChangeHomescreenState extends State<ChangeHomescreen> {
+    TextEditingController TextController = TextEditingController();
+      void text(String text , update) async {
+      var headers = {
   'Content-Type': 'application/json'
 };
-var request = http.Request('POST', Uri.parse('https://dev.noqta-market.com/API/Login.php'));
+var request = http.Request('POST', Uri.parse('https://dev.noqta-market.com/API/AddHomeScreenText.php'));
 request.body = json.encode({
-  "email": email,
-  "password": password
+  "update": update,
+  "text": text,
 });
 request.headers.addAll(headers);
 
@@ -34,13 +32,13 @@ http.StreamedResponse response = await request.send();
 
 if (response.statusCode == 201) {
   print(await response.stream.bytesToString());
-   Navigator.push(context, MaterialPageRoute(builder: (context)=> Adminbottom ()));
-
+  print("New text edit Succeffuly");
 }
 else {
   print(response.reasonPhrase);
-  print("Wrong email and password");
+  print("No text edit");
 }
+ 
 
   }
   @override
@@ -54,14 +52,7 @@ else {
         child: Column(
                  children: [
                    SizedBox(height: 70,),
-                   SafeArea(
-                     child: Container(
-                       height: 120,
-                      width: 140,
-                       
-                        child: Image(image: AssetImage('images/logo.png')),
-                     ),
-                   ),
+                 
                                       SizedBox(height: 15,),
       
                    
@@ -72,9 +63,9 @@ else {
       
                       TextFormField(
 
-                       controller: emailController,
+                       controller: TextController,
         decoration: InputDecoration(
-        hintText: 'Enter email',
+        hintText: 'Enter Text',
         ),
       
       
@@ -83,39 +74,13 @@ else {
       ), 
       SizedBox(height: 10,),
       
-         TextFormField(
-
-
-          controller: passwordController,
-           obscureText: true,
-        decoration: InputDecoration(
-        hintText: 'Password',
-        
-        ),
-      
-                    
-         
-                    ),
                   
        
-                     ],),
+                     ],
+                     ),
                    ),
                    
-      Column(
-        
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        //  SizedBox(width: 30,),
-        children: [
-      
-        TextButton(onPressed: (){
-         // Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword()));
-        }, child: Padding(
-        padding: const EdgeInsets.only(left: 190),
-        child: Text("Forgot password"),
-        )
-        )
-      ],),
+  
       
       
        SizedBox(height: 20,),
@@ -138,7 +103,7 @@ else {
                           //   _islooding  = true;
                           // });
 
-                          login(emailController.text, passwordController.text);
+                          text(TextController.text, TextController.text);
                        
                                
                         //  Navigator.push(context, MaterialPageRoute(builder: (context)=> Adminbottom ()));
@@ -150,7 +115,7 @@ else {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          "Login",
+                          "Change Text",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 18,color: Colors.white,

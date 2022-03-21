@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:insta_look/example.dart';
 import 'package:insta_look/upgradeto-pro.dart';
+
+import 'Home_page.dart';
+import 'change_home_screen_text.dart';
 class Add extends StatefulWidget {
   const Add({ Key? key }) : super(key: key);
 
@@ -22,34 +26,6 @@ class _AddState extends State<Add> {
                 children: [
 
 
-  //               Container(
-  //              // color: Colors.black,
-  //                 height: 30,
-  //                 width: 30,
-  //                  decoration: BoxDecoration(
-  //   border: Border.all(
-  //       width: 2.0,
-  //       color: Colors.white,
-  //   ),
-  //   borderRadius: BorderRadius.all(
-  //         Radius.circular(18.0) , 
-  //   ),
-  // ),
-
-  //       child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-            
-  //           children: [
-  //             SizedBox(width: 5,),
-  //             GestureDetector(
-  //              // onTap: (){ Navigator.pop(context, );},
-                
-  //               child: Icon(Icons.arrow_back_ios , color: Colors.white,  size: 16,)),
-  //           ],
-  //         ),
-            
-            
-  //             ),
               ],)
             ),
             SizedBox(height: 70,),
@@ -70,18 +46,13 @@ class _AddState extends State<Add> {
             Column(
            
               children: [
-             
-          
-           
-          
-       
           
           ListTile(title: Text("Add advertisment banner", style: TextStyle(color: Colors.black, fontSize: 18),),
                trailing: Icon(Icons.arrow_forward_ios, color: Colors.black,),
                 onTap: (){ 
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> Upgradetopro ()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>   MyApp ()));   // Upgradetopro
             },
-          ),
+          ),   
           Divider(thickness: 2,
           color: Colors.grey,
           ),
@@ -90,7 +61,7 @@ class _AddState extends State<Add> {
           
             trailing: Icon(Icons.arrow_forward_ios, color: Colors.black,),
             onTap: (){ 
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=> Upgradetopro ()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> ChangeHomescreen ()));
             },
           ),
             Divider(thickness: 2,
@@ -101,7 +72,7 @@ class _AddState extends State<Add> {
           
             trailing: Icon(Icons.arrow_forward_ios, color: Colors.black,),
             onTap: (){ 
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=> Upgradetopro ()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage ()));
             },
           ),
           Divider(thickness: 2 , color: Colors.grey,),

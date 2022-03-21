@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:insta_look/Home_page_calls.dart';
 import 'package:insta_look/pages/instapayment.dart';
+import 'package:insta_look/pages/logininstagram.dart';
 import 'package:insta_look/pages/payment.dart';
 import 'package:insta_look/stripe.dart';
 
 import 'Home_page.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+
+import 'models/api.dart';
 
 
 
@@ -20,6 +23,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +33,15 @@ class MyApp extends StatelessWidget {
        
         primarySwatch: Colors.blue,
       ),
-      home: HomePageCall(),
+      home:     HomePageCall(),
+      //  IssueListApi(),
+  
+      // IssueListApi(),
+      // HomePageCall(),
+      // apiscall(),
+      //instagram(),
+
+      // HomePageCall(),
       //Payment(),
     //  CartPage(),
       //  with flutter pay.....Payment(),

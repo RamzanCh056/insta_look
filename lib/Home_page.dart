@@ -1,8 +1,50 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:insta_look/services/textchangeapi.dart';
 import 'package:insta_look/skip.dart';
 import 'package:insta_look/your_acount.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+
+
+Future<Album> fetchAlbum() async {
+  final response =
+      await http.get(Uri.parse('https://dev.noqta-market.com/API/HomeScreenText.php'));
+      
+ 
+  // Appropriate action depending upon the
+  // server response
+  if (response.statusCode == 201) {
+    return Album.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load album');
+  }
+}
+
+class Album {
+  int? response;
+  int? code;
+  String? data;
+
+  Album({this.response, this.code, this.data});
+
+  Album.fromJson(Map<String, dynamic> json) {
+    response = json['response'];
+    code = json['code'];
+    data = json['data'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['response'] = this.response;
+    data['code'] = this.code;
+    data['data'] = this.data;
+    return data;
+  }
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({ Key? key }) : super(key: key);
 
@@ -11,6 +53,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+ Future<Album>? futureAlbum;
+ 
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = fetchAlbum();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -242,23 +294,43 @@ child:  Container(
             
              mainAxisAlignment: MainAxisAlignment.center,
              children: [
-               
-                Column(children: [
-              SizedBox(height: 250,),
-                   Text(
-                     'Inasta look',
-                    style: GoogleFonts.pacifico(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
-                   ),
+               SizedBox(height: 259,),
+             
+              Expanded(
+              child:  Center(
+          child: FutureBuilder<Album>(
+            future: futureAlbum,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.data!, style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),);
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return CircularProgressIndicator();
+            },
+          ),
+        ),
+                  ),
+           
+                  //  Text(
+                  //    'Inasta look',
+                  //   style: GoogleFonts.pacifico(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
+                  //  ),
               
-               ],),
+              
                SizedBox(height: 40,),
-                 Column(children: [
-                   Text(
-                     'Organize your instagram content\neassily', 
-                     style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
-                   ),
-              
-               ],),
+             
+                    Column(children: [
+
+                         
+                       
+                     Text(
+                       'Organize your instagram content\neassily', 
+                       style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
+                     ),
+                               
+                                ],),
+                 
               
               
                  SizedBox(height: 100),
@@ -319,6 +391,7 @@ child:  Container(
                    ],
                    ),
                  ),
+                 SizedBox(height: 20,),
               
               
              ],
@@ -333,4 +406,5 @@ child:  Container(
       ),
     );
   }
+   
 }

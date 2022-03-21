@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insta_look/upgradeto-pro.dart';
+
+import 'Banner_user_side.dart';
 class LinkedAccount extends StatefulWidget {
   const LinkedAccount({ Key? key }) : super(key: key);
 
@@ -87,7 +89,7 @@ class _LinkedAccountState extends State<LinkedAccount> {
           ),
           
             trailing: Icon(Icons.arrow_forward_ios, color: Colors.white,),
-            onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Upgradetopro ()));},
+            onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>  UserSideBaneeer()));},
           ),
           Divider(thickness: 2 , color: Colors.grey,),
   
