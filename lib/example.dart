@@ -1,267 +1,152 @@
-
-import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
-import 'package:insta_look/Banner_user_side.dart';
-import 'package:insta_look/stripe.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:image_picker/image_picker.dart';
-import 'package:insta_look/upgradeto-pro.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
-import 'dart:convert';
-import 'dart:io';
-
-import 'dart:typed_data';
-
-
-import 'package:image_picker/image_picker.dart';
-
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-class MyApp extends StatelessWidget {
-  const MyApp({ Key? key }) : super(key: key);
+//import http package manually
 
+class ImageUpload extends StatefulWidget{
   @override
-  Widget build(BuildContext context) {
-    return  SendPicture();
+  State<StatefulWidget> createState() {
+    return _ImageUpload();
   }
 }
 
-  
+class _ImageUpload extends State<ImageUpload>{
 
+  File? uploadimage; //variable for choosed file
+  //  PickedFile? _imagefile;
+ 
 
-Future<AddIssue> createIssues(
-  String image,
-) async {
-  final response = await http.post(
-    //https://admin.noqta-market.com/new/API/CreateIssues.php
-    //https://dev.noqta-market.com/API/AddBanner.php
-    Uri.parse('https://dev.noqta-market.com/API/AddBanner.php'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'image': image,
-    }),
-  );
-  if (response.statusCode == 201) {
-   
-    
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    print(response.body);
-    print('Image uploaded Successfully');
-    
-    
-    return AddIssue.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    print('Failed to upload');
-     
-    throw Exception('Failed to upload image.');
-  }
-}
-
-class AddIssue {
-  //final int id;
-
-  final String image;
-
-  const AddIssue({
-    required this.image,
-  });
-
-  factory AddIssue.fromJson(Map<String, dynamic> json) {
-    return AddIssue(
-      image: json['image'],
-    );
-  }
-}
-
-class SendPicture extends StatefulWidget {
-  SendPicture({Key? key}) : super(key: key);
-
-  @override
-  State<SendPicture> createState() => _SendPictureState();
-}
-
-class _SendPictureState extends State<SendPicture> {
-  Future<AddIssue>? _futureIssues;
-  PickedFile? _imagefile;
-  final ImagePicker imgpicker = ImagePicker();
-  String imagepath = "";
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 50,
-          ),
-          TextButton(
-            style: TextButton.styleFrom(primary: Colors.grey),
-            onPressed: () {
-              showImagePicker(context);
-            },
-            child: Text('choose_image'),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-              // color: Colors.black,
-              height: 130,
-              width: 150,
-              child: imagepath == null
-                  ? Container()
-                  : Image.file(
-                      File(imagepath),
-                      fit: BoxFit.fill,
-                    ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.grey.shade100,
-              )),
-          SizedBox(
-            height: 50,
-          ),
-          Center(
-            child: RaisedButton(
-              onPressed: () async {
-                try {
-                  if (imagepath != null) {
-                    _futureIssues = createIssues(imagepath);
-                  } else {
-                   ( 'All Fields are required');
-                  }
-                } catch (e) {
-                  print(e);
-                }
-              },
-              color: Color(0xffff6e01),
-              padding: EdgeInsets.symmetric(horizontal: 50),
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: Text(
-                "save",
-                style: TextStyle(
-                    fontSize: 14, letterSpacing: 2.2, color: Colors.white),
-              ),
-            ),
-          ),
-        ],
-      )),
-    );
-  }
-
-  void showImagePicker(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Wrap(
-              children: <Widget>[
-                ListTile(
-                    leading: const Icon(Icons.photo_library),
-                    title: Text(
-                      'Photo library',
-                      // 'Гэрэл зургийн номын сан'
-                    ),
-                    onTap: () {
-                      openGalleryImage();
-                      Navigator.of(context).pop();
-                    }),
-                ListTile(
-                  leading: const Icon(Icons.photo_camera),
-                  title: Text(
-                    'Camera',
-                    // 'Камер'
-                  ),
-                  onTap: () {
-                    openCameraImage();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ),
-          );
+  Future<void> chooseImage() async {
+      //  var choosedimage = await ImagePicker.pickImage(source: ImageSource.gallery);
+     var   choosedimage = File(await ImagePicker().getImage(source: ImageSource.gallery).then((pickedFile) => pickedFile!.path));
+        //set source: ImageSource.camera to get image from camera
+        setState(() {
+            uploadimage = choosedimage ;
         });
   }
 
-  openGalleryImage() async {
-    try {
-      var pickedFile = await imgpicker.pickImage(source: ImageSource.gallery);
-      //you can use ImageCourse.camera for Camera capture
-      if (pickedFile != null) {
-        imagepath = pickedFile.path;
-        print(imagepath);
-        //output /data/user/0/com.example.testapp/cache/image_picker7973898508152261600.jpg
+  Future<void> uploadImage() async {
+     //show your own loading or progressing code here
 
-        File imagefile = File(imagepath); //convert Path to File
-        Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-        String base64string =
-            base64.encode(imagebytes); //convert bytes to base64 string
-        print(base64string);
-        /* Output:
-              /9j/4Q0nRXhpZgAATU0AKgAAAAgAFAIgAAQAAAABAAAAAAEAAAQAAAABAAAJ3
-              wIhAAQAAAABAAAAAAEBAAQAAAABAAAJ5gIiAAQAAAABAAAAAAIjAAQAAAABAAA
-              AAAIkAAQAAAABAAAAAAIlAAIAAAAgAAAA/gEoAA ... long string output
-              */
+     String uploadurl = "https://dev.noqta-market.com/API/HomeScreenPic.php";
+     
+     //dont use http://localhost , because emulator don't get that address
+     //insted use your local IP address or use live URL
+     //hit "ipconfig" in windows or "ip a" in linux to get you local IP
 
-        Uint8List decodedbytes = base64.decode(base64string);
-        //decode base64 stirng to bytes
+   try{
+     List<int> imageBytes = await uploadimage!.readAsBytesSync();
+    String  base64Image = base64Encode(imageBytes);
 
-        setState(() {});
-      } else {
-        print("No image is selected.");
+      var response = await http.post(Uri.parse(uploadurl),
+        
+      // headers: {'content-type': 'multipart/form-data'},
+        body: {
+          'image':'$base64Image',
+        }
+      
+    //   List<int> imageBytes = uploadimage!.readAsBytesSync();
+    //   // Uint8List imagebytes = await imagefile.readAsBytes();
+    //      String base64string =
+    //         base64.encode(imageBytes); //convert bytes to base64 string
+    //     print(base64string);
+    //  // String baseimage = base64Encode(imageBytes);
+      
+      
+    //  // convert file image to Base64 encoding
+    //   var response = await http.post(Uri.parse(  uploadurl,),
+     
+            
+    //           body: {
+    //              'image_name': base64string,
+    //           }
+      );
+    
+      
+      
+      
+    
+      if(response.statusCode == 201){
+         var jsondata = json.decode(response.body);
+             print(response.body);
+         if(jsondata["error"]){ //check error sent from server
+             print(jsondata["msg"]);
+             //if error return from server, show message from server
+         }else{
+             print("Upload successful");
+         }
+      }else{
+        print("Error during connection to server");
+        //there is error during connecting to server,
+        //status code might be 404 = url not found
       }
-    } catch (e) {
-      print("error while picking file.");
+    }catch(e){
+       print("Error during converting to Base64");
+       //there is error during converting file image to base64 encoding. 
     }
   }
+   
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+         appBar: AppBar(
+           title: Text("Upload Image to Server"),
+           backgroundColor: Colors.deepOrangeAccent,
+         ),
+         body:Container(
+             height:300,
+             alignment: Alignment.center,
+             child:Column(
+                    mainAxisAlignment: MainAxisAlignment.center, //content alignment to center 
+                    children: <Widget>[
+                        Container(  //show image here after choosing image
+                            child:uploadimage == null? 
+                               Container(): //if uploadimage is null then show empty container
+                               Container(   //elese show image here
+                                  child: SizedBox( 
+                                     height:150,
+                                     child:Image.file(uploadimage!) //load image from file
+                                  )
+                               )
+                        ),
 
-  openCameraImage() async {
-    try {
-      var pickedFile = await imgpicker.pickImage(source: ImageSource.camera);
-      //you can use ImageCourse.camera for Camera capture
-      if (pickedFile != null) {
-        imagepath = pickedFile.path;
-        print(imagepath);
-        //output /data/user/0/com.example.testapp/cache/image_picker7973898508152261600.jpg
+                        Container( 
+                            //show upload button after choosing image
+                          child:uploadimage == null? 
+                               Container(): //if uploadimage is null then show empty container
+                               Container(   //elese show uplaod button
+                                  child:RaisedButton.icon(
+                                    onPressed: (){
+                                        uploadImage();
+                                        //start uploading image
+                                    }, 
+                                    icon: Icon(Icons.file_upload), 
+                                    label: Text("UPLOAD IMAGE"),
+                                    color: Colors.deepOrangeAccent,
+                                    colorBrightness: Brightness.dark,
+                                    //set brghtness to dark, because deepOrangeAccent is darker coler
+                                    //so that its text color is light
+                                  )
+                               ) 
+                        ),
 
-        File imagefile = File(imagepath); //convert Path to File
-        Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-        String base64string =
-            base64.encode(imagebytes); //convert bytes to base64 string
-        print(base64string);
-        /* Output:
-              /9j/4Q0nRXhpZgAATU0AKgAAAAgAFAIgAAQAAAABAAAAAAEAAAQAAAABAAAJ3
-              wIhAAQAAAABAAAAAAEBAAQAAAABAAAJ5gIiAAQAAAABAAAAAAIjAAQAAAABAAA
-              AAAIkAAQAAAABAAAAAAIlAAIAAAAgAAAA/gEoAA ... long string output
-              */
-
-        Uint8List decodedbytes = base64.decode(base64string);
-        //decode base64 stirng to bytes
-
-        setState(() {});
-      } else {
-        print("No image is selected.");
-      }
-    } catch (e) {
-      print("error while picking file.");
-    }
+                        Container(
+                          child: RaisedButton.icon(
+                            onPressed: (){
+                                chooseImage(); // call choose image function
+                            },
+                            icon:Icon(Icons.folder_open),
+                            label: Text("CHOOSE IMAGE"),
+                            color: Colors.deepOrangeAccent,
+                            colorBrightness: Brightness.dark,
+                          ),
+                        )
+              ],),
+          ),
+    );
   }
 }
+

@@ -27,19 +27,48 @@ var request = http.Request('POST', Uri.parse('https://dev.noqta-market.com/API/L
 request.body = json.encode({
   "email": email,
   "password": password
-});
+}
+);
 request.headers.addAll(headers);
 
 http.StreamedResponse response = await request.send();
 
 if (response.statusCode == 201) {
   print(await response.stream.bytesToString());
+     final snackBar = SnackBar(
+            content: const Text('Login Successfully'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change.
+              },
+            ),
+          );
+
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
    Navigator.push(context, MaterialPageRoute(builder: (context)=> Adminbottom ()));
+                 
 
 }
 else {
   print(response.reasonPhrase);
   print("Wrong email and password");
+                 final snackBar = SnackBar(
+            content: const Text('Wrong email or password'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change.
+              },
+            ),
+          );
+
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          
 }
 
   }
@@ -101,24 +130,10 @@ else {
                      ],),
                    ),
                    
-      Column(
-        
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        //  SizedBox(width: 30,),
-        children: [
-      
-        TextButton(onPressed: (){
-         // Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword()));
-        }, child: Padding(
-        padding: const EdgeInsets.only(left: 190),
-        child: Text("Forgot password"),
-        )
-        )
-      ],),
+   
       
       
-       SizedBox(height: 20,),
+       SizedBox(height: 27,),
                   Padding(
                     padding: const EdgeInsets.only(left: 45,right: 45),
                     child: Column(
@@ -139,6 +154,7 @@ else {
                           // });
 
                           login(emailController.text, passwordController.text);
+         
                        
                                
                         //  Navigator.push(context, MaterialPageRoute(builder: (context)=> Adminbottom ()));

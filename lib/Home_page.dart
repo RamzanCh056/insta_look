@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:insta_look/services/textchangeapi.dart';
+import 'package:insta_look/Home_page_calls.dart';
+
 import 'package:insta_look/skip.dart';
 import 'package:insta_look/your_acount.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,6 +67,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
     // backgroundColor: Color.fromARGB(241, 1, 23, 34).withOpacity(0.5),
       
     //backgroundColor: Color(0x121929),
@@ -77,6 +79,7 @@ class _HomePageState extends State<HomePage> {
           
             children: [
               SizedBox(height: 20,),
+              IconButton(onPressed: (){  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePageCall ()));;}, icon: Icon(Icons.arrow_back_ios_new, size: 30,)),
       
                Column(children: [
                 Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -296,7 +299,30 @@ child:  Container(
              children: [
                SizedBox(height: 259,),
              
-              Expanded(
+        //       Expanded(
+        //       child:  Center(
+        //   child: FutureBuilder<Album>(
+        //     future: futureAlbum,
+        //     builder: (context, snapshot) {
+        //       if (snapshot.hasData) {
+        //         return Text(snapshot.data!.data!, style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),);
+        //       } else if (snapshot.hasError) {
+        //         return Text("${snapshot.error}");
+        //       }
+        //       return CircularProgressIndicator();
+        //     },
+        //   ),
+        // ),
+        //           ),
+           
+                   Text(
+                     'Inasta look',
+                    style: GoogleFonts.pacifico(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
+                   ),
+              
+              
+               SizedBox(height: 40,),
+               Expanded(
               child:  Center(
           child: FutureBuilder<Album>(
             future: futureAlbum,
@@ -311,25 +337,17 @@ child:  Container(
           ),
         ),
                   ),
-           
-                  //  Text(
-                  //    'Inasta look',
-                  //   style: GoogleFonts.pacifico(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
-                  //  ),
-              
-              
-               SizedBox(height: 40,),
              
-                    Column(children: [
+                    // Column(children: [
 
                          
                        
-                     Text(
-                       'Organize your instagram content\neassily', 
-                       style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
-                     ),
+                    //  Text(
+                    //    'Organize your instagram content\neassily', 
+                    //    style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )
+                    //  ),
                                
-                                ],),
+                    //             ],),
                  
               
               

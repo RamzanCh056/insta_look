@@ -50,7 +50,7 @@ class _AddState extends State<Add> {
           ListTile(title: Text("Add advertisment banner", style: TextStyle(color: Colors.black, fontSize: 18),),
                trailing: Icon(Icons.arrow_forward_ios, color: Colors.black,),
                 onTap: (){ 
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>   MyApp ()));   // Upgradetopro
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>   ImageUpload ()));   // Upgradetopro
             },
           ),   
           Divider(thickness: 2,

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:insta_look/Home_page.dart';
 import 'package:insta_look/admin_bottom_bar.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
@@ -31,16 +32,32 @@ request.headers.addAll(headers);
 http.StreamedResponse response = await request.send();
 
 if (response.statusCode == 201) {
+  
   print(await response.stream.bytesToString());
+
   print("New text edit Succeffuly");
 }
 else {
   print(response.reasonPhrase);
+     final snackBar = SnackBar(
+            content: const Text('Text Not Send try again'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change.
+              },
+            ),
+          );
+
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
   print("No text edit");
 }
  
 
   }
+   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +65,7 @@ else {
 
     body: SingleChildScrollView(
       child: Form(
+         key: _formKey,
      
         child: Column(
                  children: [
@@ -62,6 +80,12 @@ else {
                               
       
                       TextFormField(
+                         validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter some text';
+    }
+    return null;
+  },
 
                        controller: TextController,
         decoration: InputDecoration(
@@ -104,6 +128,13 @@ else {
                           // });
 
                           text(TextController.text, TextController.text);
+                           if (_formKey.currentState!.validate()) {
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Text edit successfully')),
+      );
+    }
                        
                                
                         //  Navigator.push(context, MaterialPageRoute(builder: (context)=> Adminbottom ()));
