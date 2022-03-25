@@ -62,7 +62,7 @@ class _youraccountState extends State<youraccount> {
                         // SizedBox(height: 3,),
                         InkWell(
                           onTap: (){
- Navigator.push(context, MaterialPageRoute(builder: (context)=>  Navigatiobar ()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>  Navigatiobar ()));
 
                           },
                           child: ClipRRect(

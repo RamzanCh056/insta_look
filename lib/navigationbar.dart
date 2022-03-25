@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:insta_look/add_third_row.dart';
 import 'package:insta_look/linked_account.dart';
 import 'package:insta_look/post_page.dart';
 
@@ -22,7 +23,7 @@ class _NavigatiobarState extends State<Navigatiobar> {
       tabBuilder: (context, index) {
         switch (index) {
           case 0:
-            return CupertinoTabView(builder: (context) =>  linkinstagram(),);
+            return CupertinoTabView(builder: (context) =>  thirdRow (),);   /// linkinstagram
           case 1:
             return CupertinoTabView(builder: (context) =>  Container(child: Text("onetwo"),));
           case 2:

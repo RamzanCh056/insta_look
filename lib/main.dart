@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insta_look/Home_page_calls.dart';
+import 'package:insta_look/models/album.dart';
 import 'package:insta_look/pages/instapayment.dart';
 import 'package:insta_look/pages/logininstagram.dart';
 import 'package:insta_look/pages/payment.dart';
@@ -33,7 +34,9 @@ class MyApp extends StatelessWidget {
        
         primarySwatch: Colors.blue,
       ),
-      home:     HomePageCall(),
+      home:  HomePageCall(),  
+      
+      // 
       //  IssueListApi(),
   
       // IssueListApi(),
