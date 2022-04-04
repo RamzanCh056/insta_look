@@ -9,8 +9,14 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.canvasColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: "payment".text.make(),
+         centerTitle: true,
+        backgroundColor: Colors.black,
+    title: Text('aestheticpie'),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(30),
+      ),
+    ),
       ),
       body: Column(
         children: [

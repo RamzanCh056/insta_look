@@ -5,15 +5,16 @@ import 'package:insta_look/pages/instapayment.dart';
 import 'package:insta_look/pages/logininstagram.dart';
 import 'package:insta_look/pages/payment.dart';
 import 'package:insta_look/stripe.dart';
-
 import 'Home_page.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-
 import 'models/api.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
 
 void main()  async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
    //  WidgetsFlutterBinding.ensureInitialized();
 
@@ -34,7 +35,14 @@ class MyApp extends StatelessWidget {
        
         primarySwatch: Colors.blue,
       ),
-      home:  HomePageCall(),  
+      home:  HomePageCall (),
+      //Filters(),
+      
+      // HomePageCall(),  
+      //  DemoApp(),
+      // HomePageCall(),  
+     // DemoApp (),
+      
       
       // 
       //  IssueListApi(),

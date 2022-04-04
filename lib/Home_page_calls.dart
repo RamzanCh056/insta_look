@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:insta_look/Home_page.dart';
+import 'package:insta_look/authentications/forgot_password.dart';
+import 'package:insta_look/authentications/login.dart';
 import 'package:insta_look/login.dart';
 
 
@@ -106,7 +108,7 @@ class _HomePageCallState extends State<HomePageCall> {
 
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => otp()),
                       );
                     },
                     shape: RoundedRectangleBorder(

@@ -78,175 +78,184 @@ class _HomePageState extends State<HomePage> {
        Column(
           
             children: [
-              SizedBox(height: 20,),
-              IconButton(onPressed: (){  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePageCall ()));;}, icon: Icon(Icons.arrow_back_ios_new, size: 30,)),
+              SizedBox(height: 30,),
+           //  IconButton(onPressed: (){  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePageCall ()));;}, icon: Icon(Icons.arrow_back_ios_new, size: 30,)),
       
                Column(children: [
-                Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-               Container(
-                //  color: Colors.grey,
-                  
-                   height: 118,
-                 width: 137,
+                SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                  child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                               Container(
+                  //  color: Colors.grey,
+                    
+                     height: 118,
+                   width: 120,
+                   
+                      child: Image.asset('images/picone.png' , fit: BoxFit.fill, 
+                      
+                      // color: const Color.fromRGBO(255, 255, 255, 0.5, ),
+                      // colorBlendMode: BlendMode.modulate
+                      
+                      )
+                      
+                      
+                               ),
+                   Row(children: [
+                               Container(
+                   color: Colors.grey,
+                     height: 118,
+                     width: 120,
+                      child: Image.asset('images/secondpic.png' , fit: BoxFit.fill,
+                         color: const Color.fromRGBO(255, 255, 255, 0.5, ),
+                      colorBlendMode: BlendMode.modulate
+                       )
+                      
+                      
+                               ),
+                               
+                      
+                      
+                  ],),
+                    Row(children: [
+                               Container(
+                   color: Colors.grey,
+                     height: 118,
+                 width: 120,
+                      child: Image.asset('images/thirdpic.png' , fit: BoxFit.fill, 
+                         color: const Color.fromRGBO(255, 255, 255, 0.5, ),
+                      colorBlendMode: BlendMode.modulate
+                      )
+                      
+                      
+                               ),
+                               
+                      
+                      
+                  ],),
+                               
+                      
+                      
+                  ],),
+                ),
+       SingleChildScrollView(
+           scrollDirection: Axis.vertical,
+         child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                 Container(
+                   color: Colors.grey,
+                   
+                     height: 118,
+                    width: 120,
+                   
+                      child: Image.asset('images/forth.png' , fit: BoxFit.fill, 
+                      
+                    color: Color.fromARGB(160, 255, 255, 255),
+                      colorBlendMode: BlendMode.modulate
+                      
+                      )
+             
+             
+                 ),
+                   Row(children: [
+                 Container(
+                    color: Colors.grey,
+                     height: 118,
+                     width: 120,
+                      child: Image.asset('images/fifth.png' , fit: BoxFit.fill,
+                         color: Color.fromARGB(160, 255, 255, 255),
+                      colorBlendMode: BlendMode.modulate
+                      
+                       )
+             
+             
+                 ),
                  
-                    child: Image.asset('images/picone.png' , fit: BoxFit.fill, 
-                    
-                    // color: const Color.fromRGBO(255, 255, 255, 0.5, ),
-                    // colorBlendMode: BlendMode.modulate
-                    
-                    )
-      
-      
-               ),
-                 Row(children: [
-               Container(
-                 color: Colors.grey,
-                   height: 118,
-                   width: 137,
-                    child: Image.asset('images/secondpic.png' , fit: BoxFit.fill,
-                       color: const Color.fromRGBO(255, 255, 255, 0.5, ),
-                    colorBlendMode: BlendMode.modulate
-                     )
-      
-      
-               ),
-               
-      
-      
-                ],),
-                  Row(children: [
-               Container(
-                 color: Colors.grey,
-                   height: 118,
-                width: 137,
-                    child: Image.asset('images/thirdpic.png' , fit: BoxFit.fill, 
-                       color: const Color.fromRGBO(255, 255, 255, 0.5, ),
-                    colorBlendMode: BlendMode.modulate
-                    )
-      
-      
-               ),
-               
-      
-      
-                ],),
-               
-      
-      
-                ],),
-       Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-               Container(
-                 color: Colors.grey,
+             
+             
+                  ],),
+                    Row(children: [
+                 Container(
+                   color: Colors.grey,
+                     height: 118,
+                  width: 120,
+                      child: Image.asset('images/six.png' , fit: BoxFit.fill,
+                          color: Color.fromARGB(160, 255, 255, 255),
+                      colorBlendMode: BlendMode.modulate
+                      )
+             
+             
+                 ),
                  
-                   height: 118,
-                 width: 137,
+             
+             
+                  ],),
                  
-                    child: Image.asset('images/forth.png' , fit: BoxFit.fill, 
-                    
-                  color: Color.fromARGB(160, 255, 255, 255),
-                    colorBlendMode: BlendMode.modulate
-                    
-                    )
-      
-      
-               ),
-                 Row(children: [
-               Container(
-                  color: Colors.grey,
-                   height: 118,
-                  width: 137,
-                    child: Image.asset('images/fifth.png' , fit: BoxFit.fill,
-                       color: Color.fromARGB(160, 255, 255, 255),
-                    colorBlendMode: BlendMode.modulate
-                    
-                     )
-      
-      
-               ),
-               
-      
-      
-                ],),
-                  Row(children: [
-               Container(
-                 color: Colors.grey,
-                   height: 118,
-                width: 137,
-                    child: Image.asset('images/six.png' , fit: BoxFit.fill,
-                        color: Color.fromARGB(160, 255, 255, 255),
-                    colorBlendMode: BlendMode.modulate
-                    )
-      
-      
-               ),
-               
-      
-      
-                ],),
-               
-      
-      
-                ],),
+             
+             
+                  ],),
+       ),
 
       
       
              
-       Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-               Container(
-                 color: Colors.grey,
-                   height: 118,
-                  width: 137,
-                 
-                    child: Image.asset('images/seven.png' , fit: BoxFit.fill, 
-                   color: Color.fromARGB(103, 255, 255, 255),
-                    colorBlendMode: BlendMode.modulate
-                    
-                    )
-      
-      
-               ),
-                 Row(children: [
-               Container(
-                    color: Colors.grey,
-                   height: 118,
-                   width: 137,
-                    child: Image.asset('images/eight.png' , fit: BoxFit.fill, 
-                        color: Color.fromARGB(103, 255, 255, 255),
-                    colorBlendMode: BlendMode.modulate
-                    
-                    )
-      
-      
-               ),
-               
-      
-      
-                ],),
-                  Row(children: [
-               Container(
+       SingleChildScrollView(
+           scrollDirection: Axis.vertical,
+         child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                 Container(
                    color: Colors.grey,
+                     height: 118,
+                     width: 120,
+                   
+                      child: Image.asset('images/seven.png' , fit: BoxFit.fill, 
+                     color: Color.fromARGB(103, 255, 255, 255),
+                      colorBlendMode: BlendMode.modulate
+                      
+                      )
+             
+             
+                 ),
+                   Row(children: [
+                 Container(
+                      color: Colors.grey,
+                     height: 118,
+                      width: 120,
+                      child: Image.asset('images/eight.png' , fit: BoxFit.fill, 
+                          color: Color.fromARGB(103, 255, 255, 255),
+                      colorBlendMode: BlendMode.modulate
+                      
+                      )
+             
+             
+                 ),
                  
-                   height: 118,
-                width: 136,
-                    child: Image.asset('images/ninth.png' , fit: BoxFit.fill, 
-                       color: Color.fromARGB(103, 255, 255, 255),
-                    colorBlendMode: BlendMode.modulate
-                    
-                    )
-      
-      
-               ),
-               
-      
-      
-                ],),
-               
-      
-      
-                ],),
+             
+             
+                  ],),
+                    Row(children: [
+                 Container(
+                     color: Colors.grey,
+                   
+                     height: 118,
+                   width: 120,
+                      child: Image.asset('images/ninth.png' , fit: BoxFit.fill, 
+                         color: Color.fromARGB(103, 255, 255, 255),
+                      colorBlendMode: BlendMode.modulate
+                      
+                      )
+             
+             
+                 ),
+                 
+             
+             
+                  ],),
+                 
+             
+             
+                  ],),
+       ),
                
                 
                 
@@ -299,22 +308,7 @@ child:  Container(
              children: [
                SizedBox(height: 259,),
              
-        //       Expanded(
-        //       child:  Center(
-        //   child: FutureBuilder<Album>(
-        //     future: futureAlbum,
-        //     builder: (context, snapshot) {
-        //       if (snapshot.hasData) {
-        //         return Text(snapshot.data!.data!, style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),);
-        //       } else if (snapshot.hasError) {
-        //         return Text("${snapshot.error}");
-        //       }
-        //       return CircularProgressIndicator();
-        //     },
-        //   ),
-        // ),
-        //           ),
-           
+       
                    Text(
                      'Inasta look',
                     style: GoogleFonts.pacifico(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,),  )

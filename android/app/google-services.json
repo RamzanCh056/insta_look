@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "182178731691",
+    "project_id": "instalook-71ccb",
+    "storage_bucket": "instalook-71ccb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182178731691:android:9c416e8d832b95c87d89ee",
+        "android_client_info": {
+          "package_name": "com.example.insta_look"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182178731691-2iiqhpienqa4qeo3ve2ap29tah6vvufk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.insta_look",
+            "certificate_hash": "b5ba4f5223696caa50274ca85ec5e9a48c1ea381"
+          }
+        },
+        {
+          "client_id": "182178731691-fmeessgd68r5l425hr8ps8524rslt432.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZInXSxDZAWVn-yOXjn8xf0icrmyVAEyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182178731691-fmeessgd68r5l425hr8ps8524rslt432.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
