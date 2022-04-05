@@ -255,9 +255,9 @@ class _MyAppState extends State<MyApp> {
                  children: [
                       
            Icon(Icons.picture_in_picture_alt, size: 25,color: Colors.white, ),
-                SizedBox(width: 10,),
+                SizedBox(width: 6,),
                 Text(
-                 "Add Pictures",
+                 "Add Pictures ",
                  style: TextStyle(
                    fontWeight: FontWeight.w600,
                    fontSize: 18,color: Colors.white,

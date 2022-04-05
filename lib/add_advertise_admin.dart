@@ -78,7 +78,7 @@ class _AddState extends State<Add> {
           Divider(thickness: 2 , color: Colors.grey,),
   
 
-            ],)
+            ],),
 
 
 

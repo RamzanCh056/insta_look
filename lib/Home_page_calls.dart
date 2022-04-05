@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:insta_look/Home_page.dart';
-import 'package:insta_look/authentications/forgot_password.dart';
-import 'package:insta_look/authentications/login.dart';
+
+import 'package:insta_look/authentications/loginotp.dart';
 import 'package:insta_look/login.dart';
 
 
@@ -31,10 +31,16 @@ class _HomePageCallState extends State<HomePageCall> {
 
               SizedBox(height: 90,),
              Column(children: [
-               Text(
-                       'Inasta look',
-                      style: GoogleFonts.pacifico(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 27,),  )
-                     ),
+                 Container(
+                               height: 100,
+                              width: 140,
+                               
+                                child: Image(image: AssetImage('images/insta Look.png')),
+                             ),
+              //  Text(
+              //          'Inasta look',
+              //         style: GoogleFonts.pacifico(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 27,),  )
+              //        ),
              ],),
                SizedBox(height: 70,),
               Row(

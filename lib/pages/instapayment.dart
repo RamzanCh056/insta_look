@@ -18,12 +18,15 @@ class CartPage extends StatelessWidget {
       ),
     ),
       ),
-      body: Column(
-        children: [
-        
-          Divider(),
-          _CartTotal(),
-        ],
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          
+            Divider(),
+            _CartTotal(),
+          ],
+        ),
       ),
     );
   }

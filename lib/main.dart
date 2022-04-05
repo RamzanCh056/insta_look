@@ -30,13 +30,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Insta_look',
       theme: ThemeData(
        
         primarySwatch: Colors.blue,
       ),
       home:  HomePageCall (),
-      //Filters(),
       
       // HomePageCall(),  
       //  DemoApp(),
@@ -44,13 +43,6 @@ class MyApp extends StatelessWidget {
      // DemoApp (),
       
       
-      // 
-      //  IssueListApi(),
-  
-      // IssueListApi(),
-      // HomePageCall(),
-      // apiscall(),
-      //instagram(),
 
       // HomePageCall(),
       //Payment(),
