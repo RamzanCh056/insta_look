@@ -1,114 +1,99 @@
-import 'package:drag_select_grid_view/drag_select_grid_view.dart';
+
 import 'package:flutter/material.dart';
+import 'package:insta_look/Banner_user_side.dart';
+import 'package:insta_look/add_photos.dart';
 import 'package:insta_look/add_third_row.dart';
+import 'package:insta_look/authentications/profile.dart';
+import 'package:insta_look/models/album.dart';
+import 'package:insta_look/post_page.dart';
 
-
-
-
-class MyNewApp extends StatelessWidget {
-  const MyNewApp({Key? key}) : super(key: key);
-
-  static const String _title = 'Flutter Code Sample';
+class MainBottomClass extends StatefulWidget {
+  const MainBottomClass({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: _title,
-
-      home: MyStatefulWidget(),
-    );
-  }
+  _MainBottomClassState createState() => _MainBottomClassState();
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class _MainBottomClassState extends State<MainBottomClass> {
+  int selectedIndex = 0;
 
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
+  //list of widgets to call ontap
+  final widgetOptions = [
+    new thirdRow(),
+    new AddPhoto(),
+    new PreviewDart (urlImages: [],),
+    new IssueListApi(),
+    new filters(),
+    new Profile(),
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    thirdRow(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    // Carasolnavigation (),
   ];
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
+
+  final widgetTitle = ["Home", "Add photo", "perview, setting , filter, profile"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     // backgroundColor: Colors.red,
      
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: widgetOptions.elementAt(selectedIndex),
+        
       ),
-      bottomNavigationBar: ClipRRect(
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.black,
+       
+                  fixedColor: Colors.white,
+              
+                //unselectedItemColor: Colors.white,
+               
+              
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(Icons.home,),
+          ),
+           BottomNavigationBarItem(
+            label: 'Add photo',
+            icon: Icon(Icons.add,),
+          ),
+          BottomNavigationBarItem(
+            label: 'Perview', 
+            icon: Icon(Icons.remove_red_eye),
+          ),
         
-         borderRadius: BorderRadius.only(topLeft: Radius.circular(22.0), topRight: Radius.circular(22.0), bottomLeft: Radius.circular(22.0),bottomRight: Radius.circular(22.0),   ),
-        child: BottomNavigationBar(
-          
-           //elevation: 0.0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.black,
+          BottomNavigationBarItem(
+            label: 'Setting',
+            icon: Icon(Icons.settings),
+          ),
+           BottomNavigationBarItem(
+            label: 'Filter',
+            icon: Icon(Icons.filter_1_outlined),
+          ),
          
-          items: const <BottomNavigationBarItem>[
-              
-        
             BottomNavigationBarItem(
-              
-              icon: Icon(Icons.add_circle_outline ,  ),
-              label:  ("Add"),  
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.swap_calls),
-              label: 'Swap', 
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.filter),
-              label: 'Filter',
-            ),
-              BottomNavigationBarItem(
-              icon: Icon(Icons.camera_outdoor_sharp),
-              label: 'Carousal',
-            ),
-              BottomNavigationBarItem(
-              icon: Icon(Icons.download),
-              label: 'Save',
-            ),
-              BottomNavigationBarItem(
-              icon: Icon(Icons.delete_forever),
-              label: 'Delete',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          fixedColor: Colors.white,
-          //selectedItemColor: Colors.blue,
-         // selectedLabelStyle: Colors.white,
-          unselectedItemColor: Colors.white,
-          
-        //  selectedItemColor: Colors.white,
-          
-          
-          onTap: _onItemTapped,
-        ),
+            label: 'profile',
+            icon: Icon(Icons.person),
+          ),
+        ],
+        currentIndex: selectedIndex,
+      //  fixedColor: Colors.blue,
+        onTap: onItemTapped,
+         
+        // selectedItemColor: Colors.blue,
+      //    selectedLabelStyle: TextStyle(color: Colors.blue, fontSize: 20),
+      //   unselectedFontSize: 16,
+        selectedIconTheme:
+           IconThemeData(color: Colors.blue, ),
+       unselectedItemColor: Colors.white,
+         unselectedLabelStyle: TextStyle( color: Colors.white),
       ),
     );
   }
-  
 }

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:insta_look/Home_page.dart';
 import 'package:insta_look/add_third_row.dart';
 import 'package:insta_look/navigationbar.dart';
+import 'package:insta_look/small_navigation.dart';
 class youraccount extends StatefulWidget {
   const youraccount({ Key? key }) : super(key: key);
 
@@ -65,7 +66,7 @@ class _youraccountState extends State<youraccount> {
                           // SizedBox(height: 3,),
                           InkWell(
                             onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>  Navigatiobar ()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> MainBottomClass()));
 
                             },
                             child: ClipRRect(

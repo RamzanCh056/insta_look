@@ -61,6 +61,11 @@ dependencies:
   pinput: ^0.2.6
   intl_phone_field: ^3.1.0
   country_code_picker: ^2.0.2
+  flutter_secure_storage: ^5.0.2
+  image_gallery_saver: ^1.7.1
+  permission_handler: ^9.2.0
+  dio: ^4.0.6
+  gallery_saver: ^2.3.2
 
 
   
@@ -76,7 +81,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/instalook.jpeg"  
+  image_path: "assets/logo.png" 
    
 
   # The "flutter_lints" package below contains a set of recommended lints to

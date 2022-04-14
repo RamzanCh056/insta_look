@@ -148,8 +148,9 @@ class _MyAppState extends State<MyApp> {
           doneButtonTitle: "Fatto",
         ),
         materialOptions: MaterialOptions(
-          actionBarColor: "#abcdef",
-          actionBarTitle: "Example App",
+          
+          actionBarColor: "#032445",
+          actionBarTitle: "Instalook",
           allViewTitle: "All Photos",
           useDetailsView: false,
           selectCircleStrokeColor: "#000000",

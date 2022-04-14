@@ -1,12 +1,19 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:gallery_saver/files.dart';
 import 'package:path/path.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
 import 'package:image_picker/image_picker.dart';
-
+import 'package:permission_handler/permission_handler.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:dio/dio.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 class filters extends StatelessWidget {
   const filters({ Key? key }) : super(key: key);
 
@@ -22,10 +29,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+   GlobalKey _globalKey = GlobalKey();
+
   String? fileName;
   List<Filter> filters = presetFiltersList;
   final picker = ImagePicker();
   File? imageFile;
+  File? _image;
 
   Future getImage(context) async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -38,7 +48,8 @@ class _MyAppState extends State<MyApp> {
       context,
       new MaterialPageRoute(
         builder: (context) => new PhotoFilterSelector(
-          title: Text("Photo Filter Example"),
+          title: Text(" insta look"),
+          appBarColor: Colors.black,
           image: image!,
           filters: presetFiltersList,
           filename: fileName!,
@@ -55,23 +66,89 @@ class _MyAppState extends State<MyApp> {
       print(imageFile!.path);
     }
     }
-  }
+   }   
+ 
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Photo Filter Example'),
+        backgroundColor: Colors.black,
+        title: new Text('Single filter', style: TextStyle(color: Colors.white),),
+        centerTitle: true,
       ),
       body: Center(
-        child: new Container(
-          child: imageFile == null
-              ? Center(
-                  child: new Text('No image selected.'),
-                )
-              : Image.file(new File(imageFile!.path)),
-        ),
+        child: Column(children: [
+          SizedBox(height: 60,),
+           new Container(
+            child: imageFile == null
+                ? Center(
+                    child: new Text('No image selected.'),
+                  ):
+                Container(
+                  height: 250,
+                 
+                  child:  Image.file(new File(imageFile!.path)),
+                ),
+                
+          ),
+            SizedBox(height: 20,),
+                 Padding(
+                    padding: const EdgeInsets.only(left: 45,right: 45),
+                    child: Column(
+                    children: [
+                      MaterialButton(
+                        color: Colors.black,
+                        minWidth: double.infinity,
+                        height: 50,
+                          onPressed: () async{
+                         GallerySaver.saveImage(imageFile!.path, albumName: 'Hello')
+            .then((bool ) {
+          setState(() {
+          print("image saved!");
+          });
+        });
+                 
+                  //   _save();
+                  
+                        // String Url =  imageFile.toString();
+                        // print('$Url"this is url data');
+                      //  final tempDir = await getTemporaryDirectory();
+                      //  final Path = '${tempDir.path}/myfile.jpg';
+                      //  await Dio().download(fileName!, Path);
+                      //  await GallerySaver.saveImage(Path);
+                      //   print("Photo save");
+                      
+
+                         
+                       
+                    
+                    //  await GallerySaver.saveImage(Url, toDcim: true,);
+                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Save To Gallery'),));
+          
+          },
+                       
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.black,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          "Save",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,color: Colors.white,
+                          ),
+      
+                        ),
+                      ),
+                    ],
+                ),
+                  ),
+        ],),
       ),
+      
       floatingActionButton: new FloatingActionButton(
         onPressed: () => getImage(context),
         tooltip: 'Pick Image',
@@ -79,4 +156,20 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+  // _save() async {
+  //     String Url =  imageFile.toString();
+  //                       print('$Url"this is url data');
+
+  //  var response = await Dio().get(
+     
+  //          Url ,
+  //          options: Options(responseType: ResponseType.bytes)
+  //          );
+  //  final result = await ImageGallerySaver.saveImage(
+  //          Uint8List.fromList(response.data),
+  //          quality: 60,
+  //          name: "hello");
+  //  print(result);
+  // }
+ 
 }

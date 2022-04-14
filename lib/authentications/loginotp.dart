@@ -301,7 +301,7 @@ showOtpFormWidget(context){
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          "Send Otp",
+                          "Verify Otp",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 18,color: Colors.white,

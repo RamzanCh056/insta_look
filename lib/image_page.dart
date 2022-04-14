@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:insta_look/models/api.dart';
+import 'package:insta_look/pages/instapayment.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -153,41 +154,27 @@ class _ImagesPageState extends State<ImagesPage> {
                 //fontSize: 30,
                 fontWeight: FontWeight.bold)),
                                 onPressed: () async {
-                                  // final files = await widget.urlImages
-                                  //     .map<String>((file) => file.name.toString())
-                                  //     .toList();
-                                  // print("file==$files");
-                                  var pathList = <String>[];
-                                  int count = 0;
-                                  for (var item in widget.urlImages) {
-                                    // var data = await PlatformAssetBundle()
-                                    //     .load(widget.urlImages.toString());
-                                    // print("file==$data");
-                                    // ByteData imageData1 = await rootBundle
-                                    //     .load(widget.urlImages.toString());
+                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>  CartPage ()));// signup
+                                 
+                                  // var pathList = <String>[];
+                                  // int count = 0;
+                                  // for (var item in widget.urlImages) {
+                                  
+                                  //   final bytes = await item.getByteData();
+                                  //   final temp = await getTemporaryDirectory();
+                                  //   final path = '${temp.path}/${count}image.jpg';
 
-                                    // print('imgdata=$imageData1');
-                                    final bytes = await item.getByteData();
-                                    final temp = await getTemporaryDirectory();
-                                    final path = '${temp.path}/${count}image.jpg';
+                                  //   File(path).writeAsBytesSync(
+                                  //       bytes.buffer.asUint8List());
+                                  //   pathList.add(path);
+                                  //   count++;
+                                  // }
 
-                                    File(path).writeAsBytesSync(
-                                        bytes.buffer.asUint8List());
-                                    pathList.add(path);
-                                    count++;
-                                  }
-
-                                  await Share.shareFiles(pathList);
-                                  // print("uri==$url");
-                                  // var imagePath =
-                                  //     '${imagesURL.first.identifier}/${imagesURL.first.name}';
-
-                                  // print("path==$url");
+                                  // await Share.shareFiles(pathList);
+                                
                                 },
 
-                                // text.isEmpty ? null : () => _onShare(context),
-
-                                //text.isEmpty ? null : () => _onShare(context),
+                               
                                 child: const Text('Post Now', style: TextStyle(color: Colors.white),),
                               );
                             },

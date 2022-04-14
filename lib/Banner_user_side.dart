@@ -10,7 +10,7 @@ import 'package:insta_look/pages/instapayment.dart';
 
 
 class UserSideBaneeer extends StatefulWidget {
-  const UserSideBaneeer({ Key? key }) : super(key: key);
+   UserSideBaneeer({ Key? key }) : super(key: key);
 
   @override
   State<UserSideBaneeer> createState() => _UserSideBaneeerState();
@@ -143,20 +143,20 @@ class _IssueListApiState extends State<IssueListApi> {
                     unselectedWidgetColor: Colors.white,
                   ),
                   child:     Column(children: [
-                    ListTile(
-          title: const  Text("Aed 9.99/5 pictures Pakage",style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
-          leading: Radio<radiochacter>(
-            value: radiochacter.terms,
-            groupValue: _character,
-            onChanged: (radiochacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
+        //             ListTile(
+        //   title: const  Text("Aed 9.99/5 pictures Pakage",style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
+        //   leading: Radio<radiochacter>(
+        //     value: radiochacter.terms,
+        //     groupValue: _character,
+        //     onChanged: (radiochacter? value) {
+        //       setState(() {
+        //         _character = value;
+        //       });
+        //     },
+        //   ),
+        // ),
         ListTile(
-          title: const Text("Aed 22.50/ pictures Pakage",style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
+          title: const Text("Monthly 37/AED",style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
           leading: Radio<radiochacter>(
             value: radiochacter.sec,
             groupValue: _character,
@@ -168,7 +168,7 @@ class _IssueListApiState extends State<IssueListApi> {
           ),
         ),
          ListTile(
-          title: const Text("Aed 48.50/ pictures Pakage",style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
+          title: const Text("Yearly 249/AED",style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
           leading: Radio
           
           <radiochacter>(

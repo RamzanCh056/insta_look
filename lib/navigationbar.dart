@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:insta_look/Banner_user_side.dart';
 import 'package:insta_look/add_photos.dart';
 import 'package:insta_look/add_third_row.dart';
+import 'package:insta_look/authentications/profile.dart';
 import 'package:insta_look/linked_account.dart';
 import 'package:insta_look/post_page.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -16,6 +17,7 @@ import 'dart:typed_data';
 
 import 'linkinstagram.dart';
 import 'models/album.dart';
+
 
 class Navigatiobar extends StatefulWidget {
   
@@ -51,7 +53,9 @@ class _NavigatiobarState extends State<Navigatiobar> {
           case 3:
             return CupertinoTabView(builder: (context) =>  IssueListApi());
              case 4:
-            return CupertinoTabView(builder: (context) =>  LinkedAccount (),);
+            return CupertinoTabView(builder: (context) =>  filters (),);
+             case 5:
+            return CupertinoTabView(builder: (context) =>  Profile (),);
     
           default:
             return CupertinoTabView(
@@ -88,11 +92,15 @@ class _NavigatiobarState extends State<Navigatiobar> {
             label: 'Setting',
             icon: Icon(Icons.settings),
           ),
+           BottomNavigationBarItem(
+            label: 'Filter',
+            icon: Icon(Icons.filter_1_outlined),
+          ),
          
-          //   BottomNavigationBarItem(
-          //   label: 'Settings',
-          //   icon: Icon(Icons.settings),
-          //),
+            BottomNavigationBarItem(
+            label: 'profile',
+            icon: Icon(Icons.person),
+          ),
           
         ],
          onTap: (value) {

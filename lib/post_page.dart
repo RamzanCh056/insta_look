@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:insta_look/pages/instapayment.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -70,10 +71,13 @@ class _PreviewDartState extends State<PreviewDart> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                              onPressed:
-                                  text.isEmpty ? null : () => _onShare(context),
+                              onPressed:(){
+                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>  CartPage ()));// signup
+                              },
+                              
+                                  // text.isEmpty ? null : () => _onShare(context),
         
-                              //text.isEmpty ? null : () => _onShare(context),
+                           
                               child: const Text('Post'),
                             ),
                           ],

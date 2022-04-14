@@ -373,7 +373,7 @@ child:  Container(
              ),
                     SizedBox(width: 10,),
                     Text(
-                     "Login with instagram",
+                     "Start with insta look",
                      style: TextStyle(
                        fontWeight: FontWeight.w600,
                        fontSize: 18,color: Colors.black,
@@ -390,19 +390,19 @@ child:  Container(
                    ),
                  ),
                  SizedBox(height: 17,),
-                 GestureDetector(
-                   onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>Skip ()));},
-                   child: Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                     Text(
-                       'Skip',
-                       style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 22, decoration: TextDecoration.underline),
-                     ),
+                //  GestureDetector(
+                //    onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>Skip ()));},
+                //    child: Row(
+                //    mainAxisAlignment: MainAxisAlignment.center,
+                //    children: [
+                //      Text(
+                //        'Skip',
+                //        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 22, decoration: TextDecoration.underline),
+                //      ),
                              
-                   ],
-                   ),
-                 ),
+                //    ],
+                //    ),
+                //  ),
                  SizedBox(height: 20,),
               
               
