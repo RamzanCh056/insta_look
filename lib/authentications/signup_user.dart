@@ -131,7 +131,8 @@ class _SignupState extends State<Signup> {
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: TextFormField(
+                  child:
+                   TextFormField(
                     autofocus: false,
                     decoration: InputDecoration(
                   labelText: 'Email',
@@ -247,6 +248,7 @@ class _SignupState extends State<Signup> {
                               email = emailController.text;
                               password = passwordController.text;
                               confirmPassword = confirmPasswordController.text;
+                              
                             });
                             registration();
                           }

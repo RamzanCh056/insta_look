@@ -20,11 +20,11 @@ class _MainBottomClassState extends State<MainBottomClass> {
   //list of widgets to call ontap
   final widgetOptions = [
     new thirdRow(),
-    new AddPhoto(),
     new PreviewDart (urlImages: [],),
-    new IssueListApi(),
-    new filters(),
+     new filters(),
     new Profile(),
+   new IssueListApi(),
+  
 
   ];
 
@@ -34,7 +34,7 @@ class _MainBottomClassState extends State<MainBottomClass> {
     });
   }
 
-  final widgetTitle = ["Home", "Add photo", "perview, setting , filter, profile"];
+  final widgetTitle = ["Home",  "perview, setting , filter, profile"];
 
   @override
   Widget build(BuildContext context) {
@@ -59,27 +59,24 @@ class _MainBottomClassState extends State<MainBottomClass> {
             label: 'Home',
             icon: Icon(Icons.home,),
           ),
-           BottomNavigationBarItem(
-            label: 'Add photo',
-            icon: Icon(Icons.add,),
-          ),
+          
           BottomNavigationBarItem(
             label: 'Perview', 
             icon: Icon(Icons.remove_red_eye),
           ),
         
           BottomNavigationBarItem(
-            label: 'Setting',
-            icon: Icon(Icons.settings),
-          ),
-           BottomNavigationBarItem(
             label: 'Filter',
             icon: Icon(Icons.filter_1_outlined),
           ),
+           BottomNavigationBarItem(
+            label: 'profile',
+            icon: Icon(Icons.person)
+          ),
          
             BottomNavigationBarItem(
-            label: 'profile',
-            icon: Icon(Icons.person),
+            label: 'setting',
+            icon: Icon(Icons.settings),
           ),
         ],
         currentIndex: selectedIndex,

@@ -37,6 +37,41 @@ class _ProfileState extends State<Profile> {
     }
   }
   final storage =  new FlutterSecureStorage();
+    final _formKey = GlobalKey<FormState>();
+
+  var newPassword = "";
+
+
+  final newPasswordController = TextEditingController();
+    
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    newPasswordController.dispose();
+    super.dispose();
+  }
+
+  final currentUser = FirebaseAuth.instance.currentUser;
+  changePassword() async {
+    try {
+      await currentUser!.updatePassword(newPassword);
+      FirebaseAuth.instance.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.orangeAccent,
+          content: Text(
+            'Your Password has been Changed. Login again !',
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ),
+      );
+    } catch (e) {}
+  }
+        bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,54 +103,240 @@ class _ProfileState extends State<Profile> {
       ),
 
 
-      body: Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      child: Column(
-        children: [
-           
-           ListTile(
-             title:  Text(
-              'User ID: $uid',
-              style: TextStyle(fontSize: 18.0),
-            ),
-           ),
-           
-            Divider(thickness: 1,color: Colors.grey,),
+      body: SingleChildScrollView(
+        child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Column(
+          children: [
+            SizedBox(height: 30,),
+        Row( mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+              Text("Email", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+        ],),
+           SizedBox(height: 5,),
+             Container(
+                   height: 50,
+                  
+                   decoration: BoxDecoration(
+                     border: Border.all(
+
+                       color: Colors.black,
+                       width: 1,
+                     ),  borderRadius: BorderRadius.all(
+            Radius.circular(10.0)),
+                   ),
+                    child:  Center(
+                  child: Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                    
+                 children: [
+                   
+                     Text(
+                       '   Email: $email',
+                       style: TextStyle(fontSize: 18.0),
+                     ),
+               
+                   ],
+               ),
+
+                 ),),
+                 
+                Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   children: [
+                      user!.emailVerified
+                        ? Text(
+                            'verified',
+                            style: TextStyle(fontSize: 16.0, color: Colors.green),
+                          )
+                        :Row(children: [
+                           TextButton(
+                            onPressed: () => {verifyEmail()},
+                            child: Text('Verify Email', style: TextStyle(fontSize: 12.0, color: Colors.red),)      )
+                        ],
+                        ),
+                  ],),
+                 
+               Row( mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+              Text("Created", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+        ],),
+                  SizedBox(height: 5,),
+             Container(
+                   height: 50,
+                  
+                   decoration: BoxDecoration(
+                     border: Border.all(
+
+                       color: Colors.black,
+                       width: 1,
+                     ),  borderRadius: BorderRadius.all(
+            Radius.circular(10.0)),
+                   ),
+                    child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '   Created: $creationTime ',
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ],
+              ),
+                 ), 
+              
+            
+
+          // SizedBox(
+          //   height: 95,
+          //   child: Card(
+
          
-          Row(
-            children: [
-              Text(
-                '   Email: $email',
-                style: TextStyle(fontSize: 18.0),
-              ),
-              user!.emailVerified
-                  ? Text(
-                      'verified',
-                      style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
-                    )
-                  : TextButton(
-                      onPressed: () => {verifyEmail()},
-                      child: Text('Verify Email'))
-            ],
+          //     elevation: 5,
+          //     child:   Column(children: [
+          //        SizedBox(height: 13,),
+
+                
+               
+          //       Center(
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+                    
+          //         children: [
+                   
+          //           Text(
+          //             '   Email: $email',
+          //             style: TextStyle(fontSize: 18.0),
+          //           ),
+               
+          //         ],
+          //     ),
+          //       ),
+          //      Center(
+          //        child: Row(
+          //          mainAxisAlignment: MainAxisAlignment.center,
+          //          children: [
+          //             user!.emailVerified
+          //               ? Text(
+          //                   'verified',
+          //                   style: TextStyle(fontSize: 18.0, color: Colors.green),
+          //                 )
+          //               :Row(children: [
+          //                  TextButton(
+          //                   onPressed: () => {verifyEmail()},
+          //                   child: Text('Verify Email', style: TextStyle(fontSize: 15.0, color: Colors.red),)      )
+          //               ],
+          //               )
+          //         ],),
+          //      )
+          //     ],)
+              
+          //   ),
+          // ),
+            
+            // SizedBox(height: 6,),
+          //  SizedBox(
+          //    height: 95,
+          //    child: Card(
+          //      elevation: 5,
+          //      child:  Center(
+          //        child: Row(
+          //          mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           Text(
+          //             '   Created: $creationTime ',
+          //             style: TextStyle(fontSize: 18.0),
+          //           ),
+          //         ],
+          //     ),
+          //      ),),
+          //  ),
+                     SizedBox(height: 6,),
+              
+            TextButton(onPressed: (){
+              setState(() {
+                
+                              isVisible = !isVisible;
+                              print("clicked");
+
+              });
+             
+            }, child: Text("Change Password", style: TextStyle(fontSize: 18),)),
+            Visibility(
+              visible: isVisible,
+              child: Column(children: [
+                 Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  child: TextFormField(
+                    autofocus: false,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Enter new password',
+                      prefixIcon: Icon(Icons.email),
+                      hintStyle: TextStyle(color: Colors.grey),
+                       errorStyle:
+                              TextStyle(color: Colors.redAccent, fontSize: 15),
+                      filled: true,
+                      fillColor: Colors.white70,
+                       border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        borderSide: BorderSide(color: Colors.grey, width: 2),
+                      
+                       ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.grey, width: 2),
+                        
+                        
+                      ),
+                    ),
+                    controller: newPasswordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Password';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 20,),
+                ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                      primary: Colors.black, // background
+                      onPrimary: Colors.white, // foreground
+                    ),
+                    
+                  onPressed: () {
+                   
+                    // Validate returns true if the form is valid, otherwise false.
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        newPassword = newPasswordController.text;
+                      });
+                      changePassword();
+                    }
+                  },
+                  child: Text(
+                    'Change Password',
+                    style: TextStyle(fontSize: 18.0, color: Colors.white),
+                  ),
+                ),
+              ],
+                      ),
+                    ),
+                      ),
+              ],),
+            )
+          ],
+        ),
           ),
-           Divider(thickness: 1,color: Colors.grey,),
-          SizedBox(height: 6,),
-          Row(
-            children: [
-              Text(
-                '   Created: $creationTime ',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ],
-          ),
-                   SizedBox(height: 6,),
-             Divider(thickness: 1,color: Colors.grey,),
-          TextButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>ChangePassword()));
-          }, child: Text("Change Password"))
-        ],
       ),
-    ),
     );
   }
 }

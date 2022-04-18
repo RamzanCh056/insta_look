@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:insta_look/Banner_user_side.dart';
 import 'package:insta_look/pages/instapayment.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';
@@ -45,8 +46,14 @@ class _PreviewDartState extends State<PreviewDart> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TextField(
+                      cursorColor: Colors.black,
                       decoration: const InputDecoration(
+                      
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
                         labelText: 'Share text:',
+                        labelStyle:  TextStyle(color: Colors.black),
                         hintText: 'Enter some text and/or link to share',
                       ),
                       maxLines: 2,
@@ -55,8 +62,14 @@ class _PreviewDartState extends State<PreviewDart> {
                       }),
                     ),
                     TextField(
+                        cursorColor: Colors.black,
                       decoration: const InputDecoration(
+                           focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                          
+                        ),
                         labelText: 'Share subject:',
+                          labelStyle:  TextStyle(color: Colors.black),
                         hintText: 'Enter subject to share (optional)',
                       ),
                       maxLines: 2,
@@ -71,8 +84,13 @@ class _PreviewDartState extends State<PreviewDart> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
+                                                   style: ElevatedButton.styleFrom(
+                primary: Colors.black,
+               // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                
+                ),
                               onPressed:(){
-                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>  CartPage ()));// signup
+                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>  IssueListApi ()));// signup
                               },
                               
                                   // text.isEmpty ? null : () => _onShare(context),

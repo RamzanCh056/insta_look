@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:insta_look/Home_page_calls.dart';
 import 'package:insta_look/authentications/login_user.dart';
-import 'package:insta_look/authentications/loginotp.dart';
-import 'package:insta_look/login.dart';
-import 'package:insta_look/models/album.dart';
-import 'package:insta_look/navigationbar.dart';
-import 'package:insta_look/pages/instapayment.dart';
-import 'package:insta_look/pages/logininstagram.dart';
-import 'package:insta_look/pages/payment.dart';
+import 'package:insta_look/colors/color.dart';
 import 'package:insta_look/small_navigation.dart';
-import 'package:insta_look/stripe.dart';
-import 'Home_page.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'models/api.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 
 
 void main()  async{
@@ -42,6 +30,7 @@ class MyApp extends StatelessWidget {
     }
   @override
   Widget build(BuildContext context) {
+    
      return FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
@@ -52,12 +41,15 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
+          
     return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       title: 'Insta_look',
+      
       theme: ThemeData(
-       
-        primarySwatch: Colors.blue,
+      primarySwatch: Palette.kToDark
+        //primarySwatch: Colors.blue,
       ),
       home: FutureBuilder(
         future: checkLoginStatus(),
@@ -74,8 +66,10 @@ class MyApp extends StatelessWidget {
         })
    
     );
-    });
+    }
+    );
   }
+  
 }
 
 

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
+import 'package:insta_look/Banner_user_side.dart';
 import 'package:insta_look/models/api.dart';
 import 'package:insta_look/pages/instapayment.dart';
 import 'package:share_plus/share_plus.dart';
@@ -68,7 +69,7 @@ class _ImagesPageState extends State<ImagesPage> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
-          title: Text('aestheticpie'),
+          title: Text('Instalook'),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(30),
@@ -152,9 +153,10 @@ class _ImagesPageState extends State<ImagesPage> {
                // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 textStyle: TextStyle(
                 //fontSize: 30,
-                fontWeight: FontWeight.bold)),
+                fontWeight: FontWeight.bold)
+                ),
                                 onPressed: () async {
-                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>  CartPage ()));// signup
+                                   Navigator.push(context, MaterialPageRoute(builder: (context)=> IssueListApi ()));// signup
                                  
                                   // var pathList = <String>[];
                                   // int count = 0;

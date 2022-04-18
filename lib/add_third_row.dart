@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta_look/image_page.dart';
+import 'package:insta_look/models/crope.dart';
 import 'package:insta_look/post_page.dart';
 import 'dart:async';
 import 'dart:io';
@@ -110,9 +111,10 @@ class _MyAppState extends State<MyApp> {
           } else if (images != null && !isSelected) {
             //MyimagesList.remove(value);
           }
-          // print('Index of img=${images[index]}');
-          // Asset asset = images[index];
-          // print('Index of img=${asset}');
+          
+           print('Index of img=${images[index]}');
+           Asset asset = images[index];
+           print('Index of img=${asset}');
           return  isSelected?ColorFiltered(
           colorFilter: ColorFilter.mode(primaryColor, BlendMode.hue),
           child: Container(
@@ -137,6 +139,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> loadAssets() async {
     List<Asset> resultList = <Asset>[];
     //String error = 'No Error Detected';
+    print('Ali $resultList');
 
     try {
       resultList = await MultiImagePicker.pickImages(
@@ -149,7 +152,7 @@ class _MyAppState extends State<MyApp> {
         ),
         materialOptions: MaterialOptions(
           
-          actionBarColor: "#032445",
+          actionBarColor: "#000000",
           actionBarTitle: "Instalook",
           allViewTitle: "All Photos",
           useDetailsView: false,
@@ -163,7 +166,7 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       images = resultList;
-     // _error = error;
+  
     });
   }
 
@@ -198,7 +201,7 @@ class _MyAppState extends State<MyApp> {
                           }).toList();
     final text = isSelect
         ? '${controller.value.amount} Selected image'
-        : ('aestheticpie');
+        : ('Instalook');
          ColorFiltered(
           colorFilter: ColorFilter.mode(primaryColor, BlendMode.hue),
           child: Container(
@@ -230,6 +233,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
+            
           //  Center(child: Text('Error: $_error')),
           SizedBox(height: 12,),
              Padding(
@@ -239,7 +243,7 @@ class _MyAppState extends State<MyApp> {
                       minWidth: 30,
                       height: 50,
                       
-                      onPressed: loadAssets,
+                      onPressed:  loadAssets,
                      
                     
                       shape: RoundedRectangleBorder(
@@ -255,25 +259,26 @@ class _MyAppState extends State<MyApp> {
            Icon(Icons.add_circle_rounded, color: Colors.black, ),
                 SizedBox(width: 10,),
                 Text(
-                 "Add a Row",
+                 "Add a Picture",
                  style: TextStyle(
                    fontWeight: FontWeight.w600,
                    fontSize: 18,color: Colors.black,
                  ),
                ),
                ],),
+               
                     ),
              ),
              SizedBox(height: 18,),
-            // ElevatedButton(
-            //   child: Text("Pick images"),
-            //   onPressed: loadAssets,
-            // ),
+           
             Expanded(
               child: builderGrid(),
+                             
             ),
+            
           
             Visibility(visible:isclicked,
+            
             child:buildColorIcons()),
            // Expanded(child:Visibility(visible: isSelect,child:  buildColorIcons(),)),
             Row(
@@ -282,21 +287,38 @@ class _MyAppState extends State<MyApp> {
                 // ElevatedButton(
                 //   child: Text("Swap"),
                 //   onPressed: () {
-                //     Asset Item1 = images
+                //     // Asset Item1 = images
+                //     //     .where((element) =>
+                //     //         element == MyimagesList.first.imageSource)
+                //     //     .single;
+                //         setState(() {
+                //             Asset Item1 = images
                 //         .where((element) =>
                 //             element == MyimagesList.first.imageSource)
                 //         .single;
-
-                //     int Item1Index = images.indexOf(Item1);
-                //     Asset Item2 = images
+                //            int Item1Index = images.indexOf(Item1);
+                //             Asset Item2 = images
                 //         .where((element) =>
                 //             element == MyimagesList.last.imageSource)
                 //         .single;
-                //     int Item2Index = images.indexOf(Item2);
+                //          int Item2Index = images.indexOf(Item2);
 
                 //     var tmp = images[Item1Index];
                 //     images[Item1Index] = images[Item2Index];
                 //     images[Item2Index] = tmp;
+                //         });
+                        
+                //     // int Item1Index = images.indexOf(Item1);
+                //     // Asset Item2 = images
+                //     //     .where((element) =>
+                //     //         element == MyimagesList.last.imageSource)
+                //     //     .single;
+                        
+                //     // int Item2Index = images.indexOf(Item2);
+
+                //     // var tmp = images[Item1Index];
+                //     // images[Item1Index] = images[Item2Index];
+                //     // images[Item2Index] = tmp;
                 //   },
                 // ),
                 // ElevatedButton(
@@ -338,6 +360,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),        
         bottomNavigationBar: Visibility(
+          
             visible: isSelect,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
@@ -361,7 +384,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.swap_calls),
-                    label: 'Swap',
+                    label: 'Swaping',
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.filter),
@@ -375,10 +398,10 @@ class _MyAppState extends State<MyApp> {
                     icon: Icon(Icons.download),
                     label: 'Save',
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.delete_forever),
-                    label: 'Delete',
-                  ),
+                  // BottomNavigationBarItem(
+                  //   icon: Icon(Icons.delete_forever),
+                  //   label: 'Delete',
+                  // ),
                 ],
                 currentIndex: _selectedIndex,
                 fixedColor: Colors.white,
@@ -400,7 +423,9 @@ class _MyAppState extends State<MyApp> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => PreviewDart(
                                     urlImages: AssetSelected,
-                                  )));
+                                  )
+                                  )
+                                  );
                           print('AssetSelectedimages==$AssetSelected');
                         }
            });
@@ -412,15 +437,36 @@ class _MyAppState extends State<MyApp> {
 
 
         };
-        if (value == 2) {
-           setState(() {
+        if (value == 1) {
+            
+              setState(() {
+                            Asset Item0 = images
+                        .where((element) =>
+                            element == MyimagesList.first.imageSource)
+                        .single;
+                           int Item0Index = images.indexOf(Item0);
+                            Asset Item1 = images
+                        .where((element) =>
+                            element == MyimagesList.last.imageSource)
+                        .single;
+                         int Item1Index = images.indexOf(Item1);
+
+                    var tmp = images[Item0Index];
+                    images[Item0Index] = images[Item1Index];
+                    images[Item1Index] = tmp;
+                        });
+
+        };
+        if (value == 2)  { 
+            setState(() {
              print('abc');
             
              isclicked= !isclicked;
                   buildColorIcons();
            });
-        };
-        if (value == 3)  { 
+                    
+                                };
+        if (value == 3) {
             setState(() {
                       if (isSelect == true) {
                         var AssetSelected = controller.value.selectedIndexes
@@ -450,8 +496,7 @@ class _MyAppState extends State<MyApp> {
                         print('no images in the list');
                       }
                     });
-                                };
-        if (value == 23) ("two");
+        }
         if (value == 4) ("two");
         if (value == 5) ("two");
       },

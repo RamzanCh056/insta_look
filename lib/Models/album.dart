@@ -5,6 +5,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gallery_saver/files.dart';
+import 'package:insta_look/Banner_user_side.dart';
+import 'package:insta_look/pages/instapayment.dart';
 import 'package:path/path.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
@@ -14,6 +16,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:share_plus/share_plus.dart';
 class filters extends StatelessWidget {
   const filters({ Key? key }) : super(key: key);
 
@@ -67,8 +70,8 @@ class _MyAppState extends State<MyApp> {
     }
     }
    }   
- 
-
+  //bool  PhotoFilterSelector = true;
+      // List<String>imagpath = [imageFile!.path.toString()];
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -78,98 +81,150 @@ class _MyAppState extends State<MyApp> {
         centerTitle: true,
       ),
       body: Center(
-        child: Column(children: [
-          SizedBox(height: 60,),
-           new Container(
-            child: imageFile == null
-                ? Center(
-                    child: new Text('No image selected.'),
-                  ):
-                Container(
-                  height: 250,
-                 
-                  child:  Image.file(new File(imageFile!.path)),
-                ),
-                
-          ),
-            SizedBox(height: 20,),
-                 Padding(
-                    padding: const EdgeInsets.only(left: 45,right: 45),
-                    child: Column(
-                    children: [
-                      MaterialButton(
-                        color: Colors.black,
-                        minWidth: double.infinity,
-                        height: 50,
-                          onPressed: () async{
-                         GallerySaver.saveImage(imageFile!.path, albumName: 'Hello')
-            .then((bool ) {
-          setState(() {
-          print("image saved!");
-          });
-        });
-                 
-                  //   _save();
-                  
-                        // String Url =  imageFile.toString();
-                        // print('$Url"this is url data');
-                      //  final tempDir = await getTemporaryDirectory();
-                      //  final Path = '${tempDir.path}/myfile.jpg';
-                      //  await Dio().download(fileName!, Path);
-                      //  await GallerySaver.saveImage(Path);
-                      //   print("Photo save");
-                      
+        child: SingleChildScrollView(
+          child: Column(children: [
+            SizedBox(height: 60,),
+             new Container(
+              child: imageFile == null
+                  ? Center(
+                      child: new Text('No image selected.'),
+                    ):
+                  Container(
+                    height:600,
+                    width: double.infinity,
+                   
+                    child: Column(children: [
+                       Container(height: 270, 
 
-                         
                        
-                    
-                    //  await GallerySaver.saveImage(Url, toDcim: true,);
-                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Save To Gallery'),));
-          
-          },
-                       
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
+                        child: Image.file(new File(imageFile!.path, )),
+                       ),
+                        SizedBox(height: 30,),
+                       Column(children: [
+                       Padding(
+                        padding: const EdgeInsets.only(left: 45,right: 45),
+                        child: Column(
+                        children: [
+                          MaterialButton(
                             color: Colors.black,
+                            minWidth: double.infinity,
+                            height: 50,
+                            
+                              onPressed: () async{
+                           
+                             GallerySaver.saveImage(imageFile!.path, albumName: 'Hello')
+                              .then((bool ) {
+                            setState(() {
+                            print("image saved!");
+                            });
+                          });
+                     
+                     
+                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Save To Gallery'),));
+                            
+                            },
+                           
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Colors.black,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              "Save",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,color: Colors.white,
+                              ),
+                        
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          "Save",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,color: Colors.white,
-                          ),
-      
-                        ),
+                        ],
+                    ),
                       ),
-                    ],
-                ),
+                      SizedBox(height: 15,),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 45,right: 45),
+                        child: Column(
+                        children: [
+                          MaterialButton(
+                            color: Colors.black,
+                            minWidth: double.infinity,
+                            height: 50,
+                            
+                              onPressed: () async{
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> IssueListApi ()));
+                              // setState(() {
+                                
+                              //       _onShare(context);
+                              // });
+                     
+                     
+                            },
+                           
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Colors.black,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              "Post",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,color: Colors.white,
+                              ),
+                        
+                            ),
+                          ),
+                        ],
+                    ),
+                      ),
+                  
+                    ],),
+                    ],)
+                    
+                   
+        
                   ),
-        ],),
+                  
+            ),
+              SizedBox(height: 20,),
+                
+                    
+                   
+                  
+                  
+                   
+                      
+                    
+        
+                    
+          ],),
+        ),
       ),
       
       floatingActionButton: new FloatingActionButton(
+        backgroundColor: Colors.black,
         onPressed: () => getImage(context),
         tooltip: 'Pick Image',
         child: new Icon(Icons.add_a_photo),
       ),
     );
   }
-  // _save() async {
-  //     String Url =  imageFile.toString();
-  //                       print('$Url"this is url data');
 
-  //  var response = await Dio().get(
-     
-  //          Url ,
-  //          options: Options(responseType: ResponseType.bytes)
-  //          );
-  //  final result = await ImageGallerySaver.saveImage(
-  //          Uint8List.fromList(response.data),
-  //          quality: 60,
-  //          name: "hello");
-  //  print(result);
-  // }
+ void _onShare(BuildContext context) async {
+    
+    final box = context.findRenderObject() as RenderBox?;
+       List<String>imagpath = [imageFile!.path.toString()];
+         //  List<String> imagpath  = [];
+
+
+    if (imagpath.isNotEmpty) {
+      await Share.shareFiles(imagpath
+       
+          );
+    }
+  }
  
 }
