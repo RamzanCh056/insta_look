@@ -25,7 +25,9 @@ import 'package:image/image.dart' as imageLib;
 import 'package:image_picker/image_picker.dart';
 
 StreamController<int> streamController = StreamController<int>();
-
+  var picsavein=[] ;
+     List<Asset> images = <Asset>[];
+ 
 class thirdRow extends StatelessWidget {
   
   const thirdRow({Key? key}) : super(key: key);
@@ -50,7 +52,7 @@ class Multi extends StatelessWidget {
     );
   }
 }
-
+ 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -86,15 +88,15 @@ class _MyAppState extends State<MyApp> {
   HashSet selectItems = HashSet();
   PickedFile? _imagefile;
   bool isMultiSelectionEnabled = false;
-  List<Asset> images = <Asset>[];
+  //  List<Asset> images = <Asset>[];
   List<Asset> SelectedImages = <Asset>[];
-  List<MyImages> MyimagesList = <MyImages>[];
+List<MyImages> MyimagesList = <MyImages>[];
   bool isclicked=false;
 
   Widget builderGrid() {
     return DragSelectGridView(
         gridController: controller,
-        itemCount: images.length,
+        itemCount:images.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 8, crossAxisCount: 3, mainAxisSpacing: 8),
         itemBuilder: (context, index, isSelected) {
@@ -108,9 +110,10 @@ class _MyAppState extends State<MyApp> {
             } else if (MyimagesList.isEmpty) {
               MyimagesList.add(new MyImages(images[index], isSelected, index));
             }
-          } else if (images != null && !isSelected) {
+          } else if (images!= null && !isSelected) {
             //MyimagesList.remove(value);
-          }
+          } 
+           images=images;
           
            print('Index of img=${images[index]}');
            Asset asset = images[index];
@@ -269,6 +272,7 @@ class _MyAppState extends State<MyApp> {
                
                     ),
              ),
+             
              SizedBox(height: 18,),
            
             Expanded(
