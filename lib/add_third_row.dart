@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta_look/image_page.dart';
 import 'package:insta_look/models/crope.dart';
@@ -26,7 +27,10 @@ import 'package:image_picker/image_picker.dart';
 
 StreamController<int> streamController = StreamController<int>();
   var picsavein=[] ;
-     List<Asset> images = <Asset>[];
+   List<Asset> images = <Asset>[];
+  // var images;
+
+  
  
 class thirdRow extends StatelessWidget {
   
@@ -55,7 +59,14 @@ class Multi extends StatelessWidget {
  
 class MyApp extends StatefulWidget {
   @override
+  
   _MyAppState createState() => _MyAppState();
+}
+ enum AppState {
+  free,
+  picked,
+  cropped,
+  filter,
 }
 
 class MyImages {
@@ -86,7 +97,7 @@ class _MyAppState extends State<MyApp> {
   
 
   HashSet selectItems = HashSet();
-  PickedFile? _imagefile;
+  //PickedFile? _imagefile;
   bool isMultiSelectionEnabled = false;
   //  List<Asset> images = <Asset>[];
   List<Asset> SelectedImages = <Asset>[];
@@ -100,6 +111,9 @@ List<MyImages> MyimagesList = <MyImages>[];
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 8, crossAxisCount: 3, mainAxisSpacing: 8),
         itemBuilder: (context, index, isSelected) {
+          
+         
+       
          
                 if (isSelected) {
             if (MyimagesList.isNotEmpty &&
@@ -107,13 +121,41 @@ List<MyImages> MyimagesList = <MyImages>[];
                         .length ==
                     0) {
               MyimagesList.add(new MyImages(images[index], isSelected, index));
-            } else if (MyimagesList.isEmpty) {
+            } 
+            else if (MyimagesList.isEmpty) {
               MyimagesList.add(new MyImages(images[index], isSelected, index));
             }
-          } else if (images!= null && !isSelected) {
+          } 
+          else if (images!= null && !isSelected) {
             //MyimagesList.remove(value);
           } 
            images=images;
+           if(isSelected==false){
+              Asset asset = images[index];
+              return Stack(overflow: Overflow.visible, children: [
+            Positioned(
+              child: AssetThumb(
+                asset: asset,
+                width: 150,
+                height: 150,
+              ),
+            ),
+            Positioned(
+                top: 0,
+               
+                right: 0,
+                left: 90,
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        images.removeAt(index);
+                      });
+                    },
+                    icon: Icon(Icons.delete, color: Colors.red))),
+          ]
+          );
+           }
+
           
            print('Index of img=${images[index]}');
            Asset asset = images[index];
@@ -136,6 +178,8 @@ List<MyImages> MyimagesList = <MyImages>[];
         )):SelectableItemWidget(url: images[index], IsSelected: isSelected);
               // AssetThumb(asset: images[index], width: 100, height: 100);
              // SelectableItemWidget(url: images[index], IsSelected: isSelected);
+
+             
         });
   }
 
@@ -171,12 +215,21 @@ List<MyImages> MyimagesList = <MyImages>[];
       images = resultList;
   
     });
-  }
+  }   
+ 
+  late AppState state;
+  //  @override
+  // void initState() {
+  //   super.initState();
+  //   state = AppState.free;
+  // }
+  
 
   @override
   void initState() {
     super.initState();
     controller.addListener(scheduleRebuild);
+    state = AppState.free;
   }
 
   @override
@@ -442,7 +495,7 @@ List<MyImages> MyimagesList = <MyImages>[];
 
         };
         if (value == 1) {
-            
+             
               setState(() {
                             Asset Item0 = images
                         .where((element) =>
@@ -454,11 +507,30 @@ List<MyImages> MyimagesList = <MyImages>[];
                             element == MyimagesList.last.imageSource)
                         .single;
                          int Item1Index = images.indexOf(Item1);
+                         
 
                     var tmp = images[Item0Index];
                     images[Item0Index] = images[Item1Index];
                     images[Item1Index] = tmp;
+
+
+
                         });
+                    //     Asset Item0 = images
+                    //     .where((element) =>
+                    //         element == MyimagesList.first.imageSource)
+                    //     .single;
+                    //        int Item0Index = images.indexOf(Item0);
+                    //         Asset Item1 = images
+                    //     .where((element) =>
+                    //         element == MyimagesList.last.imageSource)
+                    //     .single;
+                    //      int Item1Index = images.indexOf(Item1);
+                         
+
+                    // var tmp = images[Item0Index];
+                    // images[Item0Index] = images[Item1Index];
+                    // images[Item1Index] = tmp;
 
         };
         if (value == 2)  { 
@@ -472,6 +544,8 @@ List<MyImages> MyimagesList = <MyImages>[];
                                 };
         if (value == 3) {
             setState(() {
+                
+                 images.remove(images);
                       if (isSelect == true) {
                         var AssetSelected = controller.value.selectedIndexes
                             .map<Asset>((index) {
@@ -501,11 +575,47 @@ List<MyImages> MyimagesList = <MyImages>[];
                       }
                     });
         }
-        if (value == 4) ("two");
+        if (value == 4){
+         setState(() {
+           
+        
+        
+                           
+                            
+                           
+                             GallerySaver.saveImage(images.toString(), albumName: 'instalook')
+                              .then((bool ) {
+                            setState(() {
+                            print("image saved!");
+                            });
+                          });
+                     
+                     
+                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Save To Gallery'),));
+                            
+                            
+         
+         });
+          //   _clearImage();
+        
+          // print("Clear image call");
+         
+       };
         if (value == 5) ("two");
       },
               ),
             )));
+  }
+  
+  void _clearImage() {
+     // images  = null ;
+     
+    setState(() {
+      
+              // images =null as List<Asset>;
+      state = AppState.free;
+        print("Clear image through function");
+    });
   }
 
   String getSelectedItemCount() {
@@ -608,8 +718,10 @@ List<MyImages> MyimagesList = <MyImages>[];
   //     imagePaths.removeAt(position);
   //   });
   // }
+    
 
 }
+
 
 class SelectableItemWidget extends StatefulWidget {
   final Asset url;
@@ -641,18 +753,47 @@ class _SelectableItemWidgetState extends State<SelectableItemWidget> {
       child: ClipRRect(
 
          // borderRadius: BorderRadius.circular(widget.IsSelected ? 80 : 0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: widget.IsSelected?  Border.all(width: 2,color: Colors.blue):Border.all(width: 0)
+          child: 
+             // Positioned(
+                Container(
+              decoration: BoxDecoration(
+                
+                border: widget.IsSelected?  Border.all(width: 2,color: Colors.black)
+                :Border.all(width: 0)
+              ),
+              
+               
+              child:  widget.IsSelected? Stack(
+                children:[ 
+                  Positioned(
+                  child:
+                   AssetThumb(
+                    asset: widget.url,
+                    width: 300,
+                    height: 300,
+                  ),
+               ),
+                 Positioned(
+                 top: 0, left: 95,right: 0,
+                 
+                 child: Icon(Icons.done_outline_rounded, color: Colors.black,)),
+                
+                ]
+              ):  AssetThumb(
+                    asset: widget.url,
+                    width: 300,
+                    height: 300,
+                  ),
+             
             ),
-            child: AssetThumb(
-              asset: widget.url,
-              width: 300,
-              height: 300,
-            ),
-          )),
+           // ),
+               
+              
+            
+          ),
     );
   }
+  
   
 }
 

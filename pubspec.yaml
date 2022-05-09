@@ -68,6 +68,7 @@ dependencies:
   gallery_saver: ^2.3.2
   image_cropper: ^1.5.1
   image_crop: ^0.4.0
+  
 
 
   

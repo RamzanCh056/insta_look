@@ -5,6 +5,8 @@ import 'package:insta_look/add_photos.dart';
 import 'package:insta_look/add_third_row.dart';
 import 'package:insta_look/authentications/profile.dart';
 import 'package:insta_look/models/album.dart';
+import 'package:insta_look/models/crope.dart';
+import 'package:insta_look/models/crope_n.dart';
 import 'package:insta_look/post_page.dart';
 
 class MainBottomClass extends StatefulWidget {
@@ -21,9 +23,10 @@ class _MainBottomClassState extends State<MainBottomClass> {
   final widgetOptions = [
     new thirdRow(),
     new PreviewDart (urlImages: [],),
-     new filters(),
-    new Profile(),
-   new IssueListApi(),
+     new  Newcroperfollow (),
+    new  Profile(),
+   new   IssueListApi(),
+   //
   
 
   ];
