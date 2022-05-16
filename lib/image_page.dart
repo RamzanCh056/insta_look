@@ -1,27 +1,33 @@
 import 'dart:io';
+import 'package:gallery_saver/files.dart';
+import 'package:image/image.dart' as imageLib;
+import 'package:path/path.dart';
 import 'dart:typed_data';
-import 'package:flutter/services.dart';
-import 'package:insta_look/Banner_user_side.dart';
-import 'package:insta_look/models/api.dart';
-import 'package:insta_look/pages/instapayment.dart';
+// import 'package:flutter/services.dart';
+// import 'package:insta_look/Banner_user_side.dart';
+// import 'package:insta_look/models/api.dart';
+// import 'package:insta_look/pages/instapayment.dart';
+import 'package:photofilters/photofilters.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:math';
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:photofilters/photofilters.dart';
-import 'dart:math' as math;
+// import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
+// import 'package:image_picker/image_picker.dart';
+// import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
-
+// import 'package:flutter/services.dart';
+import 'dart:typed_data';
 // import 'package:share_plus/share_plus.dart';
 
 // import 'image_previews.dart';
 import 'package:flutter/rendering.dart' show ViewportOffset;
+
+File? imageFile;
 
 class ImagesPage extends StatefulWidget {
   final List<Asset> urlImages;
@@ -44,7 +50,6 @@ List mycolors = <Color>[
   Colors.orange,
   Colors.indigo,
   Color.fromARGB(239, 158, 158, 158),
-  
 ];
 Color primaryColor = mycolors[0];
 
@@ -66,146 +71,160 @@ class _ImagesPageState extends State<ImagesPage> {
   Widget build(BuildContext context) {
     //  Asset asset = widget.urlImages;
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          title: Text('Instalook'),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
-            ),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        title: Text('Instalook'),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
           ),
         ),
-        body: SafeArea(
-          child:
-              //     ListView(
-              //   children: widget.urlImages
-              //       .map(
-              //         (urlimage) => AssetThumb(
-              //           asset: urlimage,
-              //           // fit: BoxFit.cover,
-              //           width: 1000,
-              //           height: 600,
-              //         ),
-              //       )
-              //       .toList(),
-              // )
-              SingleChildScrollView(
-            child: Stack(
-              children: [
-                buildImage(),
-                buildColorIcons(),
-                Positioned(
-                  top: 90,
-                  left: 0,
-                  right: 0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      // TextField(
-                      //   decoration: const InputDecoration(
-                      //     labelText: 'Share text:',
-                      //     hintText: 'Enter some text and/or link to share',
-                      //   ),
-                      //   maxLines: 2,
-                      //   onChanged: (String value) => setState(() {
-                      //     text = value;
-                      //   }),
-                      // ),
-                      // TextField(
-                      //   decoration: const InputDecoration(
-                      //     labelText: 'Share subject:',
-                      //     hintText: 'Enter subject to share (optional)',
-                      //   ),
-                      //   maxLines: 2,
-                      //   onChanged: (String value) => setState(() {
-                      //     subject = value;
-                      //   }),
-                      // ),
-                      const Padding(padding: EdgeInsets.only(top: 12.0)),
-                      // ImagePreviews(imagePaths, onDelete: _onDeleteImage),
-                      // ListTile(
-                      //   leading: const Icon(Icons.add),
-                      //   title: const Text('Add image'),
-                      //   onTap: () async {
-                      //     final imagePicker = ImagePicker();
-                      //     final pickedFile = await imagePicker.pickImage(
-                      //       source: ImageSource.gallery,
-                      //     );
-                      //     if (pickedFile != null) {
-                      //       setState(() {
-                      //         imagePaths.add(pickedFile.path);
-                      //       });
-                      //     }
-                      //   },
-                      // ),
-                      const Padding(padding: EdgeInsets.only(bottom: 390.0 , left: 120)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          
-                          Builder(
-                            builder: (BuildContext context) {
-                              return 
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-               // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                textStyle: TextStyle(
-                //fontSize: 30,
-                fontWeight: FontWeight.bold)
+      ),
+      body: SafeArea(
+        child:
+            //     ListView(
+            //   children: widget.urlImages
+            //       .map(
+            //         (urlimage) => AssetThumb(
+            //           asset: urlimage,
+            //           // fit: BoxFit.cover,
+            //           width: 1000,
+            //           height: 600,
+            //         ),
+            //       )
+            //       .toList(),
+            // )
+            SingleChildScrollView(
+          child: Stack(
+            children: [
+              buildImage(),
+              buildColorIcons(),
+              Positioned(
+                top: 90,
+                left: 0,
+                right: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // TextField(
+                    //   decoration: const InputDecoration(
+                    //     labelText: 'Share text:',
+                    //     hintText: 'Enter some text and/or link to share',
+                    //   ),
+                    //   maxLines: 2,
+                    //   onChanged: (String value) => setState(() {
+                    //     text = value;
+                    //   }),
+                    // ),
+                    // TextField(
+                    //   decoration: const InputDecoration(
+                    //     labelText: 'Share subject:',
+                    //     hintText: 'Enter subject to share (optional)',
+                    //   ),
+                    //   maxLines: 2,
+                    //   onChanged: (String value) => setState(() {
+                    //     subject = value;
+                    //   }),
+                    // ),
+                    const Padding(padding: EdgeInsets.only(top: 12.0)),
+                    // ImagePreviews(imagePaths, onDelete: _onDeleteImage),
+                    // ListTile(
+                    //   leading: const Icon(Icons.add),
+                    //   title: const Text('Add image'),
+                    //   onTap: () async {
+                    //     final imagePicker = ImagePicker();
+                    //     final pickedFile = await imagePicker.pickImage(
+                    //       source: ImageSource.gallery,
+                    //     );
+                    //     if (pickedFile != null) {
+                    //       setState(() {
+                    //         imagePaths.add(pickedFile.path);
+                    //       });
+                    //     }
+                    //   },
+                    // ),
+                    const Padding(
+                        padding: EdgeInsets.only(bottom: 390.0, left: 120)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Builder(
+                          builder: (BuildContext context) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.black,
+                                  // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                                  textStyle: TextStyle(
+                                      //fontSize: 30,
+                                      fontWeight: FontWeight.bold)),
+                              onPressed: () async {
+                                //  Navigator.push(context, MaterialPageRoute(builder: (context)=> IssueListApi ()));// signup
+                                var pathList = <String>[];
+                                int count = 0;
+                                for (var item in widget.urlImages) {
+                                  final bytes = await item.getByteData();
+                                  final temp = await getTemporaryDirectory();
+                                  final path = '${temp.path}/${count}image.jpg';
+
+                                  File(path).writeAsBytesSync(
+                                      bytes.buffer.asUint8List());
+                                  pathList.add(path);
+                                  count++;
+                                }
+
+                                await Share.shareFiles(pathList);
+                              },
+                              child: const Text(
+                                'Post Now',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                          },
+                        ),
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       setState(() {
+                        //         filter(context);
+                        //       });
+                        //       // print('pathlist==$pathList');
+                        //     },
+                        //     child: Text('test'))
+                      ],
+                    ),
+                    // const Padding(padding: EdgeInsets.only(top: 12.0)),
+                    // Builder(
+                    //   builder: (BuildContext context) {
+                    //     return ElevatedButton(
+                    //       onPressed: text.isEmpty
+                    //           ? null
+                    //           : () => _onShareWithResult(context),
+                    //       child: const Text('Share With Result'),
+                    //     );
+                    //   },
+                    // ),
+                  ],
                 ),
-                                onPressed: () async {
-                                   Navigator.push(context, MaterialPageRoute(builder: (context)=> IssueListApi ()));// signup
-                                 
-                                  // var pathList = <String>[];
-                                  // int count = 0;
-                                  // for (var item in widget.urlImages) {
-                                  
-                                  //   final bytes = await item.getByteData();
-                                  //   final temp = await getTemporaryDirectory();
-                                  //   final path = '${temp.path}/${count}image.jpg';
-
-                                  //   File(path).writeAsBytesSync(
-                                  //       bytes.buffer.asUint8List());
-                                  //   pathList.add(path);
-                                  //   count++;
-                                  // }
-
-                                  // await Share.shareFiles(pathList);
-                                
-                                },
-
-                               
-                                child: const Text('Post Now', style: TextStyle(color: Colors.white),),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                     // const Padding(padding: EdgeInsets.only(top: 12.0)),
-                      // Builder(
-                      //   builder: (BuildContext context) {
-                      //     return ElevatedButton(
-                      //       onPressed: text.isEmpty
-                      //           ? null
-                      //           : () => _onShareWithResult(context),
-                      //       child: const Text('Share With Result'),
-                      //     );
-                      //   },
-                      // ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () {
+          filter(context);
+        },
+        child: Icon(Icons.filter),
+      ),
+    );
   }
 
   Widget buildImage() => Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: 600,
+        height: 600,
+        // width: MediaQuery.of(context).size.width,
+        // height: MediaQuery.of(context).size.height,
         child: ColorFiltered(
           colorFilter: ColorFilter.mode(primaryColor, BlendMode.hue),
           child: Container(
@@ -274,7 +293,7 @@ class _ImagesPageState extends State<ImagesPage> {
             //             color: myColor,
             //           ),
             //         )
-             
+
             // ],),
             IconButton(
               icon: Icon(
@@ -284,7 +303,6 @@ class _ImagesPageState extends State<ImagesPage> {
               ),
               onPressed: () {
                 setState(() {
-                  
                   primaryColor = myColor;
                 });
               },
@@ -338,5 +356,64 @@ class _ImagesPageState extends State<ImagesPage> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Share result: ${result.status}"),
     ));
+  }
+
+  Future filter(context) async {
+    var filterpathList = <File>[];
+    var im;
+    var fi;
+    int count = 0;
+    for (var item in widget.urlImages) {
+      final bytes = await item.getByteData();
+      final temp = await getTemporaryDirectory();
+      final path = '${temp.path}/${count}image.jpg';
+      File(path).writeAsBytesSync(bytes.buffer.asUint8List());
+      im = File(path);
+      // var cb=Uri.parse(path);
+      filterpathList.add(im);
+      count++;
+    }
+    for (int i = 0; i < filterpathList.length; i++) {
+      fi = File(filterpathList[i].absolute.path);
+    }
+
+    var fk = File(filterpathList.length.toString());
+    var fil = File(filterpathList[0].absolute.path);
+    // .replaceAll('[', "")
+    // .replaceAll(']', '')
+    print('fi==$fi');
+    print('fil==$fil');
+    print('im==$im');
+    print('filterpathList==$filterpathList');
+    // File ab = im.map<Image>((e) => Image.file(e)).toList;
+
+    //final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (fil != null) {
+      fil = new File(im.path);
+      fileName = basename(fil.path);
+      var image = imageLib.decodeImage(await fil.readAsBytes());
+      image = imageLib.copyResize(image!, width: 600);
+      Map imagefile = await Navigator.push(
+        context,
+        new MaterialPageRoute(
+          builder: (context) => new PhotoFilterSelector(
+            title: Text(" insta look"),
+            appBarColor: Colors.black,
+            image: image!,
+            filters: presetFiltersList,
+            filename: fileName!,
+            loader: Center(child: CircularProgressIndicator()),
+            fit: BoxFit.contain,
+          ),
+        ),
+      );
+      if (imagefile != null && imagefile.containsKey('image_filtered')) {
+        setState(() {
+          fil = imagefile['image_filtered'];
+        });
+        print(fil.path);
+      }
+    }
   }
 }

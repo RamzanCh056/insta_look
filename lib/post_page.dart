@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class PreviewDart extends StatefulWidget {
-  final List<Asset> urlImages;
+  final List<String> urlImages;
   const PreviewDart({Key? key, required this.urlImages}) : super(key: key);
 
   @override
@@ -25,7 +25,9 @@ class _PreviewDartState extends State<PreviewDart> {
         body: SingleChildScrollView(
           child: SafeArea(
             child: Column(children: [
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
@@ -33,8 +35,16 @@ class _PreviewDartState extends State<PreviewDart> {
                     Expanded(
                       child: Column(
                           children: widget.urlImages
-                              .map((urlimg) => AssetThumb(
-                                  asset: urlimg, width: 380, height: 200,))
+                              .map(
+                                (urlimg) => Image.file(
+                                  File(urlimg).absolute,
+                                  fit: BoxFit.cover,
+                                  width: 380,
+                                  height: 200,
+                                ),
+                                // AssetThumb(
+                                //     asset: urlimg, width: 380, height: 200,)
+                              )
                               .toList()),
                     ),
                   ],
@@ -48,12 +58,10 @@ class _PreviewDartState extends State<PreviewDart> {
                     TextField(
                       cursorColor: Colors.black,
                       decoration: const InputDecoration(
-                      
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black)
-                        ),
+                            borderSide: BorderSide(color: Colors.black)),
                         labelText: 'Share text:',
-                        labelStyle:  TextStyle(color: Colors.black),
+                        labelStyle: TextStyle(color: Colors.black),
                         hintText: 'Enter some text and/or link to share',
                       ),
                       maxLines: 2,
@@ -62,14 +70,12 @@ class _PreviewDartState extends State<PreviewDart> {
                       }),
                     ),
                     TextField(
-                        cursorColor: Colors.black,
+                      cursorColor: Colors.black,
                       decoration: const InputDecoration(
-                           focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black)
-                          
-                        ),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
                         labelText: 'Share subject:',
-                          labelStyle:  TextStyle(color: Colors.black),
+                        labelStyle: TextStyle(color: Colors.black),
                         hintText: 'Enter subject to share (optional)',
                       ),
                       maxLines: 2,
@@ -84,18 +90,20 @@ class _PreviewDartState extends State<PreviewDart> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                                                   style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-               // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                
-                ),
-                              onPressed:(){
-                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>  IssueListApi ()));// signup
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black,
+                                // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            IssueListApi())); // signup
                               },
-                              
-                                  // text.isEmpty ? null : () => _onShare(context),
-        
-                           
+
+                              // text.isEmpty ? null : () => _onShare(context),
+
                               child: const Text('Post'),
                             ),
                           ],
@@ -115,21 +123,21 @@ class _PreviewDartState extends State<PreviewDart> {
     final box = context.findRenderObject() as RenderBox?;
     var pathList = <String>[];
     int count = 0;
-    for (var item in widget.urlImages) {
-      final bytes = await item.getByteData();
-      final temp = await getTemporaryDirectory();
-      final path = '${temp.path}/${count}image.jpg';
+    // for (var item in widget.urlImages) {
+    //   final bytes = await item.getByteData();
+    //   final temp = await getTemporaryDirectory();
+    //   final path = '${temp.path}/${count}image.jpg';
 
-      File(path).writeAsBytesSync(bytes.buffer.asUint8List());
-      pathList.add(path);
-      count++;
-    }
+    //   File(path).writeAsBytesSync(bytes.buffer.asUint8List());
+    //   pathList.add(path);
+    //   count++;
+    // }
     if (pathList.isNotEmpty) {
       final files = await widget.urlImages
           .map<String>((file) => file.toString())
           .toList();
 
-      await Share.shareFiles(pathList,
+      await Share.shareFiles(widget.urlImages,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
@@ -140,4 +148,3 @@ class _PreviewDartState extends State<PreviewDart> {
     }
   }
 }
-
